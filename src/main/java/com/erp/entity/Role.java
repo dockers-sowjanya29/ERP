@@ -2,8 +2,6 @@ package com.erp.entity;
 
 import java.util.Calendar;
 
-import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.business.impl.ReferenceDataServiceImpl;
 import com.erp.dto.NameValuePair;
-import com.erp.dto.ReferenceDataResponse;
 
 @RestController
 @RequestMapping("controller/erp/reference")

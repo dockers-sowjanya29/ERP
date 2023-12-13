@@ -1,6 +1,7 @@
 package com.erp.dto;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class RoleResponse {
 
@@ -14,7 +15,15 @@ public class RoleResponse {
 	private String roleText;
 	private Calendar assignedDate;
 	private Calendar lastLogin;
+	private List<NameValuePair> featuresList;
 	
+	
+	public List<NameValuePair> getFeaturesList() {
+		return featuresList;
+	}
+	public void setFeaturesList(List<NameValuePair> featuresList) {
+		this.featuresList = featuresList;
+	}
 	public Long getId() {
 		return id;
 	}

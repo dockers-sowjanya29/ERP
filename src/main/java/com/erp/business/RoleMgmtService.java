@@ -13,4 +13,6 @@ public interface RoleMgmtService {
 	public List<RoleResponse> loadAllRoles(RoleRequest request);
 	
 	public String deleteRole(Long roleId);
+	
+	public RoleResponse getRoleById(Long roleId);
 }

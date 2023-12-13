@@ -39,4 +39,10 @@ public class RoleController {
 	public String deleteRole(@RequestBody Long roleId) {
 		return roleMgmtServiceImpl.deleteRole(roleId);
 	}
+	
+	//getRoleById
+	@RequestMapping(value = "/getRoleById", method = RequestMethod.POST)
+	public RoleResponse getRoleById(@RequestBody Long roleId) {
+		return roleMgmtServiceImpl.getRoleById(roleId);
+	}
 }

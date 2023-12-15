@@ -26,8 +26,7 @@ public class Role {
 	@Column(name = "ROLE_REF_ID")
 	private Long roleRefId;
 
-	@Column(name = "FEATURES")
-	private Long features;
+	
 
 	@Column(name = "USERNAME")
 	private String userName;
@@ -85,13 +84,6 @@ public class Role {
 		this.roleRefId = roleRefId;
 	}
 
-	public Long getFeatures() {
-		return features;
-	}
-
-	public void setFeatures(Long features) {
-		this.features = features;
-	}
 
 	public String getUserName() {
 		return userName;

@@ -1,9 +1,12 @@
 package com.erp.business.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +36,8 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 	RoleFeatureRepository roleFeatureRepository;
 
 	@Override
-	public String createRole(RoleRequest request) {
+	 @Transactional
+	public String createRole(RoleRequest request) { //save//update
 		Role role=null;
 		
 		if (request != null) {
@@ -44,15 +48,12 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 			        
 				}	
 			}
-			else {
+			else { //new record
 			    role = new Role();
 			}
 			if(role!=null)
 			{
-				
-				   if(request.getFeatures()!=null && request.getFeatures().length>0) {
-						role.setFeatures(request.getFeatures()[0]); 
-				   }
+			
 				role.setSchoolId(request.getSchoolId());
 				role.setUserName(request.getUserName());
 				role.setPassword(request.getPassword());
@@ -143,7 +144,6 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 				   roleResponse.setPassword(role.getPassword());
 				   roleResponse.setId(role.getId());
 				   roleResponse.setSchoolId(role.getSchoolId());
-				   roleResponse.setFeatures(role.getFeatures());
 				   roleResponse.setRoleRefId(role.getRoleRefId());
 				   
 				   List<RoleFeature> roleFeatures=roleFeatureRepository.findAllBySchoolRoleId(roleId);
@@ -169,23 +169,79 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 	
 
 //features method
-	
-	public boolean	createOrUpdateFeatures(Long roleId,Long features[])
+	 @Transactional
+	public boolean	createOrUpdateFeatures(Long roleId,Long uiFeatures[])
 	{
-		
-		if(roleId!=null && features!=null && features.length>0)
+		if(roleId!=null && uiFeatures!=null && uiFeatures.length>0)
 		{
-			List<RoleFeature> roleFeatures=new ArrayList<>();
-			for(Long featureId: features) {
-				RoleFeature roleFeature=new RoleFeature();
-				roleFeature.setSchoolRoleId(roleId);
-				roleFeature.setFeatureRefId(featureId);
-				roleFeatures.add(roleFeature);
+			List<RoleFeature> roleFeaturesFromDB=roleFeatureRepository.findAllBySchoolRoleId(roleId);//get all the list from db
+
+			if(roleFeaturesFromDB!=null && roleFeaturesFromDB.size()>0) {
+				List<Long> originalList=new ArrayList<>();
+				
+				for(RoleFeature roleFeature: roleFeaturesFromDB) {
+					originalList.add(roleFeature.getFeatureRefId()); //original list from database
+					
+				}
+				List<Long> dataToUpdate=getUnCommonData(originalList,Arrays.asList(uiFeatures)); //preparing removed list from UI
+				
+				if(dataToUpdate!=null && dataToUpdate.size()>0) {
+				      roleFeatureRepository.deleteBySchoolRoleIdAndFeatureRefIdIn(roleId,dataToUpdate);//removed list
+				  }
+				//preparing new list from UI
+				originalList=new ArrayList<>();
+				roleFeaturesFromDB=roleFeatureRepository.findAllBySchoolRoleId(roleId);
+				for(RoleFeature roleFeature: roleFeaturesFromDB) { 
+					
+					originalList.add(roleFeature.getFeatureRefId()); 
+				}
+				
+		     dataToUpdate=getUnCommonData(Arrays.asList(uiFeatures),originalList);
+		     if(dataToUpdate!=null && dataToUpdate.size()>0) 
+		       {
+		    	        Long[] insertFeatures = new Long[dataToUpdate.size()];
+		    	        insertFeatures = dataToUpdate.toArray(insertFeatures);
+		     	       return saveRoleFeatures(roleId,insertFeatures);
+		       }			}
+			else {
+				
+				return saveRoleFeatures(roleId,uiFeatures);
 			}
-			if(roleFeatures.size()>0) {
-			roleFeatureRepository.saveAll(roleFeatures);}
 		}
 		return false;
 	}
+
+
+	
+	private List<Long> getUnCommonData(List<Long> originalList,List<Long> subList)
+	{
+		List<Long> tempList=new ArrayList<>(originalList);
+		if(originalList!=null && subList!=null && originalList.size()>0 && subList.size()>0)
+		{
+			tempList.removeAll(subList); //list contains items only in name
+		}
+		return tempList;
+	}
+	
+	
+	private boolean saveRoleFeatures(Long roleId, Long[] features)
+	{
+		List<RoleFeature> roleFeatures=new ArrayList<>();
+		
+		for(Long featureId: features) {
+			RoleFeature roleFeature=new RoleFeature();
+			roleFeature.setSchoolRoleId(roleId);
+			roleFeature.setFeatureRefId(featureId);
+			roleFeatures.add(roleFeature);
+		}
+		
+		if(roleFeatures.size()>0) {
+			roleFeatureRepository.saveAll(roleFeatures);
+		     return true;	
+		}
+		
+		return false;
+	}
+	
 	
 }

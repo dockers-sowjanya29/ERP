@@ -9,7 +9,7 @@ import com.erp.entity.RoleFeature;
 
 @Repository
 public interface RoleFeatureRepository extends JpaRepository<RoleFeature, Long> {
-	public List<RoleFeature> findAllBySchoolRoleId(Long schoolRoleId);
-	public void deleteBySchoolRoleIdAndFeatureRefIdIn(Long schoolRoleId ,List<Long> featureRefIds);
+	//public List<RoleFeature> findAllBySchoolRoleId(Long schoolRoleId);
+	//public void deleteBySchoolRoleIdAndFeatureRefIdIn(Long schoolRoleId ,List<Long> featureRefIds);
 
 }

@@ -39,12 +39,14 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 	 @Transactional
 	public String createRole(RoleRequest request) { //save//update
 		Role role=null;
+		boolean updateRole=false;
 		
 		if (request != null) {
 			if(request.getId()!=null) {
 				Optional<Role> roleOptional=roleRepository.findById(request.getId());
 				if(roleOptional!=null) {
 					role=roleOptional.get();
+					updateRole=true;
 			        
 				}	
 			}
@@ -61,12 +63,53 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 				role.setRoleRefId(request.getRoleRefId());
 				role.setAssignedDate(Calendar.getInstance());
 				role.setLastLogin(Calendar.getInstance());
-				role= roleRepository.save(role);
+
+				List<RoleFeature> roleFeaturesToDB=new ArrayList<>();
 				
+				if(updateRole==false) {
+						for(Long featureId: request.getFeatures()) {
+							RoleFeature roleFeature=new RoleFeature();
+							roleFeature.setRole(role);
+							roleFeature.setFeatureRefId(featureId);
+						//	roleFeaturesToDB.add(roleFeature);
+							role.getRoleFeatures().add(roleFeature);
+					     }
+						role= roleRepository.save(role); //new object
+				   }
+				
+					else{
+						
+						List<RoleFeature> roleFeaturesFromDB=role.getRoleFeatures();
+						List<RoleFeature> featuresIDToUpdateDB=new ArrayList<>();
+						for(RoleFeature roleFeature: role.getRoleFeatures())
+						{
+							for(Long featureId: request.getFeatures()) {
+							 if(featureId!=roleFeature.getFeatureRefId()) {
+								 role.getRoleFeatures().remove(roleFeature);
+							 }
+							}
+						}
+						role= roleRepository.save(role); //after remove-save
+						
+						roleFeaturesFromDB=role.getRoleFeatures();
+						for(RoleFeature roleFeature: role.getRoleFeatures())
+						{
+							for(Long featureId: request.getFeatures()) {
+							 if(featureId!=roleFeature.getFeatureRefId()) {
+								 RoleFeature roleFeatToDB=new RoleFeature();
+								 roleFeature.setRole(role);
+								 roleFeature.setFeatureRefId(featureId);
+								 featuresIDToUpdateDB.add(roleFeatToDB);
+							   }
+							}
+						}
+						role.setRoleFeatures(featuresIDToUpdateDB);
+						role= roleRepository.save(role); //inserting new features while updating role
+					}
 			}	
 			if(role!=null) {
-				boolean roleFeaturesUpdted=createOrUpdateFeatures(role.getId(), request.getFeatures());
-				if(roleFeaturesUpdted)
+				//boolean roleFeaturesUpdted=createOrUpdateFeatures(role.getId(), request.getFeatures());
+				//if(roleFeaturesUpdted)
 				    return role.getUserName();
 			}
 			
@@ -119,13 +162,9 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 
 	@Override
 	public String deleteRole(Long roleId) {
-		if(roleId!=null) {
-			Optional<Role> roleOptional=roleRepository.findById(roleId);
-			if(roleOptional!=null) {
-				roleRepository.delete(roleOptional.get());
-		           return "Role Deleted Succesfully";
-			}
-			
+		if (roleId != null) {
+			roleRepository.deleteById(roleId);
+			return "Role Deleted Succesfully";
 		}
 		return null;
 	}
@@ -146,9 +185,9 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 				   roleResponse.setSchoolId(role.getSchoolId());
 				   roleResponse.setRoleRefId(role.getRoleRefId());
 				   
-				   List<RoleFeature> roleFeatures=roleFeatureRepository.findAllBySchoolRoleId(roleId);
+				//   List<RoleFeature> roleFeatures=roleFeatureRepository.findAllBySchoolRoleId(roleId);
 				   List<NameValuePair> featureNameValuePairs=new ArrayList<>();
-				   
+				   List<RoleFeature> roleFeatures=role.getRoleFeatures();
 				   for(RoleFeature feature: roleFeatures) {
 					   NameValuePair nameValuePair=new NameValuePair();
 					   ReferenceDataLang dataLang=referenceDataLangRepository.getReferenceById(feature.getFeatureRefId());
@@ -169,13 +208,14 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 	
 
 //features method
-	 @Transactional
-	public boolean	createOrUpdateFeatures(Long roleId,Long uiFeatures[])
+	// @Transactional
+	/*public boolean	createOrUpdateFeatures(Role role,Long uiFeatures[])
 	{
-		if(roleId!=null && uiFeatures!=null && uiFeatures.length>0)
+		if(role!=null && uiFeatures!=null && uiFeatures.length>0)
 		{
-			List<RoleFeature> roleFeaturesFromDB=roleFeatureRepository.findAllBySchoolRoleId(roleId);//get all the list from db
-
+			//get all the list from db
+			List<RoleFeature> roleFeaturesFromDB=role.getRoleFeatures();
+		
 			if(roleFeaturesFromDB!=null && roleFeaturesFromDB.size()>0) {
 				List<Long> originalList=new ArrayList<>();
 				
@@ -183,14 +223,15 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 					originalList.add(roleFeature.getFeatureRefId()); //original list from database
 					
 				}
-				List<Long> dataToUpdate=getUnCommonData(originalList,Arrays.asList(uiFeatures)); //preparing removed list from UI
+				//preparing removed list from UI
+				List<Long> dataToUpdate=getUnCommonData(originalList,Arrays.asList(uiFeatures)); 
 				
 				if(dataToUpdate!=null && dataToUpdate.size()>0) {
-				      roleFeatureRepository.deleteBySchoolRoleIdAndFeatureRefIdIn(roleId,dataToUpdate);//removed list
+				     // roleFeatureRepository.deleteBySchoolRoleIdAndFeatureRefIdIn(roleId,dataToUpdate);//removed list
 				  }
 				//preparing new list from UI
 				originalList=new ArrayList<>();
-				roleFeaturesFromDB=roleFeatureRepository.findAllBySchoolRoleId(roleId);
+				//roleFeaturesFromDB=roleFeatureRepository.findAllBySchoolRoleId(roleId);
 				for(RoleFeature roleFeature: roleFeaturesFromDB) { 
 					
 					originalList.add(roleFeature.getFeatureRefId()); 
@@ -208,8 +249,9 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 				return saveRoleFeatures(roleId,uiFeatures);
 			}
 		}
+		
 		return false;
-	}
+	}*/
 
 
 	
@@ -230,7 +272,7 @@ public class RoleMgmtServiceImpl implements RoleMgmtService{
 		
 		for(Long featureId: features) {
 			RoleFeature roleFeature=new RoleFeature();
-			roleFeature.setSchoolRoleId(roleId);
+		//	roleFeature.setSchoolRoleId(roleId);
 			roleFeature.setFeatureRefId(featureId);
 			roleFeatures.add(roleFeature);
 		}

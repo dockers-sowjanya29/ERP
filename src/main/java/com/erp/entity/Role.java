@@ -1,12 +1,18 @@
 package com.erp.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,13 +26,26 @@ public class Role {
 	@SequenceGenerator(name = "SCHOOL_ROLE_ID_SEQUENCE", sequenceName = "SCHOOL_ROLE_ID_SEQUENCE", allocationSize = 1)
 	private Long id;
 
+	
+	@OneToMany(mappedBy = "role",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	//@JoinColumn(name = "SCHOOL_ROLE_ID")
+	private List<RoleFeature> roleFeatures = new ArrayList<>();	
+	
+	public List<RoleFeature> getRoleFeatures() {
+		return roleFeatures;
+	}
+
+	public void setRoleFeatures(List<RoleFeature> roleFeatures) {
+		this.roleFeatures = roleFeatures;
+	}
+
 	@Column(name = "SCHOOL_ID")
 	private Long schoolId;
 
 	@Column(name = "ROLE_REF_ID")
 	private Long roleRefId;
 
-	
+		
 
 	@Column(name = "USERNAME")
 	private String userName;

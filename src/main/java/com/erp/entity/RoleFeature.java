@@ -2,9 +2,12 @@ package com.erp.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,9 +20,21 @@ public class RoleFeature {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_FEATURE_ID_SEQUENCE")
 	@SequenceGenerator(name = "ROLE_FEATURE_ID_SEQUENCE", sequenceName = "ROLE_FEATURE_ID_SEQUENCE", allocationSize = 1)
 	private Long id;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "SCHOOL_ROLE_ID")
+	private Role role; 
 
-	@Column(name = "SCHOOL_ROLE_ID")
-	private Long schoolRoleId;
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	//@Column(name = "SCHOOL_ROLE_ID")
+	//private Long schoolRoleId;
 
 	@Column(name = "FEATURE_REF_ID")
 	private Long featureRefId;
@@ -32,13 +47,12 @@ public class RoleFeature {
 		this.id = id;
 	}
 
-	public Long getSchoolRoleId() {
-		return schoolRoleId;
-	}
-
-	public void setSchoolRoleId(Long schoolRoleId) {
-		this.schoolRoleId = schoolRoleId;
-	}
+	/*
+	 * public Long getSchoolRoleId() { return schoolRoleId; }
+	 * 
+	 * public void setSchoolRoleId(Long schoolRoleId) { this.schoolRoleId =
+	 * schoolRoleId; }
+	 */
 
 	public Long getFeatureRefId() {
 		return featureRefId;

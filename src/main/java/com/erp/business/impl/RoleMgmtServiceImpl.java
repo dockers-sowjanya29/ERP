@@ -43,9 +43,8 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 
 		if (request != null) {
 			if (request.getId() != null) {
-				Optional<Role> roleOptional = roleRepository.findById(request.getId());
-				if (roleOptional != null) {
-					role = roleOptional.get();
+				role = getRole(request.getId());
+				if (role != null) {
 					updateRole = true;
 
 				}
@@ -71,49 +70,14 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 					}
 					role = roleRepository.save(role); // new object
 				}
-
 				else {
 					List<Long> featureIdsFromUi = Arrays.asList(request.getFeatures());
-					System.out.println("Feature ref ids from Ui");
-					featureIdsFromUi.forEach(roleFeature -> System.out.println(roleFeature));
-					
-					List<RoleFeature> roleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
-					System.out.println("From DB");
-					roleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
-
-					
-					List<RoleFeature> removeFeatures = roleFeaturesFromDB.stream()
-							.filter(roleFeatureFromDB -> featureIdsFromUi.stream().allMatch(
-									featureIdFromUi -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
-							.collect(Collectors.toList());
-					System.out.println("To Remove");
-					removeFeatures.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
-
-					role.getRoleFeatures().removeAll(removeFeatures);
-					role = roleRepository.save(role); // after remove-save
-
-					final List<RoleFeature> updatedsRoleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
-					System.out.println("From DB after remove");
-					updatedsRoleFeaturesFromDB
-							.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
-
-					List<Long> insertFeatures = featureIdsFromUi.stream()
-							.filter(featureIdFromUi -> updatedsRoleFeaturesFromDB.stream().allMatch(
-									roleFeatureFromDB -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
-							.collect(Collectors.toList());
-					System.out.println("Feature ref ids to insert");
-					insertFeatures.forEach(roleFeature -> System.out.println(roleFeature));
-
-					List<RoleFeature> roleFeaturesToInsert = new ArrayList<>();
-
-					for (Long featureId : insertFeatures) {
-						RoleFeature roleFeatureTOInsert = new RoleFeature();
-						roleFeatureTOInsert.setRole(role);
-						roleFeatureTOInsert.setFeatureRefId(featureId);
-						roleFeaturesToInsert.add(roleFeatureTOInsert);
+					boolean roleFeaturesUpdated = updateRoleFeatures(role, featureIdsFromUi);
+					if(roleFeaturesUpdated) {
+						System.out.println("Role Features are Updated/Deleted/Inserted");
+					}else {
+						System.out.println("Role Features are not Updated/Deleted/Inserted");
 					}
-					roleFeatureRepository.saveAll(roleFeaturesToInsert); // inserting new features while updating role
-
 				}
 			}
 			if (role != null) {
@@ -174,38 +138,79 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 
 	@Override
 	public RoleResponse getRoleById(Long roleId) {
+		Role role = getRole(roleId);
+		if (role != null) {
+			RoleResponse roleResponse = new RoleResponse();
+			roleResponse.setUserName(role.getUserName());
+			roleResponse.setPhoneNumber(role.getPhoneNumber());
+			roleResponse.setPassword(role.getPassword());
+			roleResponse.setId(role.getId());
+			roleResponse.setSchoolId(role.getSchoolId());
+			roleResponse.setRoleRefId(role.getRoleRefId());
+
+			List<NameValuePair> featureNameValuePairs = new ArrayList<>();
+			List<RoleFeature> roleFeatures = role.getRoleFeatures();
+			for (RoleFeature feature : roleFeatures) {
+				NameValuePair nameValuePair = new NameValuePair();
+				ReferenceDataLang dataLang = referenceDataLangRepository.getReferenceById(feature.getFeatureRefId());
+				if (dataLang != null) {
+					nameValuePair.setValue(feature.getFeatureRefId().toString());
+					nameValuePair.setName(dataLang.getRefDataLabel());
+					featureNameValuePairs.add(nameValuePair);
+				}
+
+			}
+			roleResponse.setFeaturesList(featureNameValuePairs);
+			return roleResponse;
+		}
+		return null;
+	}
+	
+	private Role getRole(Long roleId) {
 		if (roleId != null) {
 			Optional<Role> roleOptional = roleRepository.findById(roleId);
 			if (roleOptional != null) {
-				Role role = roleOptional.get();
-				if (role != null) {
-					RoleResponse roleResponse = new RoleResponse();
-					roleResponse.setUserName(role.getUserName());
-					roleResponse.setPhoneNumber(role.getPhoneNumber());
-					roleResponse.setPassword(role.getPassword());
-					roleResponse.setId(role.getId());
-					roleResponse.setSchoolId(role.getSchoolId());
-					roleResponse.setRoleRefId(role.getRoleRefId());
-
-					List<NameValuePair> featureNameValuePairs = new ArrayList<>();
-					List<RoleFeature> roleFeatures = role.getRoleFeatures();
-					for (RoleFeature feature : roleFeatures) {
-						NameValuePair nameValuePair = new NameValuePair();
-						ReferenceDataLang dataLang = referenceDataLangRepository
-								.getReferenceById(feature.getFeatureRefId());
-						if (dataLang != null) {
-							nameValuePair.setValue(feature.getFeatureRefId().toString());
-							nameValuePair.setName(dataLang.getRefDataLabel());
-							featureNameValuePairs.add(nameValuePair);
-						}
-
-					}
-					roleResponse.setFeaturesList(featureNameValuePairs);
-					return roleResponse;
-				}
+				return roleOptional.get();
 			}
 		}
 		return null;
+	}
+	
+	private boolean updateRoleFeatures(Role role, List<Long> featureIdsFromUi) {
+		if (role != null && featureIdsFromUi != null) {
+			System.out.println("Feature ref ids from Ui");
+			featureIdsFromUi.forEach(roleFeature -> System.out.println(roleFeature));
+			List<RoleFeature> roleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
+			System.out.println("From DB");
+			roleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
+			List<RoleFeature> removeFeatures = roleFeaturesFromDB.stream()
+					.filter(roleFeatureFromDB -> featureIdsFromUi.stream()
+							.allMatch(featureIdFromUi -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
+					.collect(Collectors.toList());
+			System.out.println("To Remove");
+			removeFeatures.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
+			role.getRoleFeatures().removeAll(removeFeatures);
+			role = roleRepository.save(role); // after remove-save
+			List<RoleFeature> updatedsRoleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
+			System.out.println("From DB after remove");
+			updatedsRoleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
+			List<Long> insertFeatures = featureIdsFromUi.stream()
+					.filter(featureIdFromUi -> updatedsRoleFeaturesFromDB.stream()
+							.allMatch(roleFeatureFromDB -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
+					.collect(Collectors.toList());
+			System.out.println("Feature ref ids to insert");
+			insertFeatures.forEach(roleFeature -> System.out.println(roleFeature));
+			List<RoleFeature> roleFeaturesToInsert = new ArrayList<>();
+			for (Long featureId : insertFeatures) {
+				RoleFeature roleFeatureTOInsert = new RoleFeature();
+				roleFeatureTOInsert.setRole(role);
+				roleFeatureTOInsert.setFeatureRefId(featureId);
+				roleFeaturesToInsert.add(roleFeatureTOInsert);
+			}
+			roleFeatureRepository.saveAll(roleFeaturesToInsert); // inserting new features while updating role
+			return true;
+		}
+		return false;
 	}
 
 }

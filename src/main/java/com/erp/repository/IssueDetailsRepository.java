@@ -1,0 +1,11 @@
+package com.erp.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.erp.entity.IssueDetails;
+
+@Repository
+public interface IssueDetailsRepository extends JpaRepository<IssueDetails, Long>{
+
+}

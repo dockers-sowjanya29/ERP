@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ import com.erp.repository.RoleRepository;
 
 @Service
 public class RoleMgmtServiceImpl implements RoleMgmtService {
+	
+	 final static Logger logger = LoggerFactory.getLogger(RoleMgmtServiceImpl.class);
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -38,6 +42,8 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 	@Override
 	@Transactional
 	public String createRole(RoleRequest request) { // save//update
+		
+	logger.info("inside createRole method.");
 		Role role = null;
 		boolean updateRole = false;
 
@@ -177,17 +183,22 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 	}
 	
 	private boolean updateRoleFeatures(Role role, List<Long> featureIdsFromUi) {
-		if (role != null && featureIdsFromUi != null) {
-			System.out.println("Feature ref ids from Ui");
-			featureIdsFromUi.forEach(roleFeature -> System.out.println(roleFeature));
+		
+		if (role != null && featureIdsFromUi != null)
+		{
+			//System.out.println("Feature ref ids from Ui");
+			//featureIdsFromUi.forEach(roleFeature -> System.out.println(roleFeature));
 			List<RoleFeature> roleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
-			System.out.println("From DB");
-			roleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
+			//System.out.println("From DB");
+			//roleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
+			
+			//
 			List<RoleFeature> removeFeatures = roleFeaturesFromDB.stream()
 					.filter(roleFeatureFromDB -> featureIdsFromUi.stream()
 							.allMatch(featureIdFromUi -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
 					.collect(Collectors.toList());
 			System.out.println("To Remove");
+			
 			removeFeatures.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
 			role.getRoleFeatures().removeAll(removeFeatures);
 			role = roleRepository.save(role); // after remove-save

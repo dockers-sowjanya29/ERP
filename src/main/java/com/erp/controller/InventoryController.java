@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.business.InventoryService;
 import com.erp.dto.InventoryRequest;
+import com.erp.dto.InventoryResponse;
 import com.erp.dto.NameValuePair;
 
 @RestController
@@ -30,6 +31,12 @@ public class InventoryController {
 	@RequestMapping(value = "/getInventoryOptions", method = RequestMethod.GET)
 	public List<NameValuePair> getInventoryOptions() {
 		return inventoryService.getInventoryOptions();
+	}
+	
+	
+	@RequestMapping(value = "/getInventoryList", method = RequestMethod.GET)
+	public List<InventoryResponse> getInventoryList() {
+		return inventoryService.getInventoryList();
 	}
 	
 

@@ -1,31 +1,29 @@
 package com.erp.dto;
 
-import java.util.List;
+
 
 public class InventoryResponse {
 	
 	private Long id;
-	private List<IssueDetailsResponse> issueDetailsResponses = null;
 	private Long itemId;
 	private String itemName;
-	private byte[] itemImage;
-	private String itemCategory;
-	private Float price;
 	private Long quantity;
+	private String status;
 	
 	
 	public Long getId() {
 		return id;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<IssueDetailsResponse> getIssueDetailsResponses() {
-		return issueDetailsResponses;
-	}
-	public void setIssueDetailsResponses(List<IssueDetailsResponse> issueDetailsResponses) {
-		this.issueDetailsResponses = issueDetailsResponses;
-	}
+	
 	public Long getItemId() {
 		return itemId;
 	}
@@ -38,24 +36,7 @@ public class InventoryResponse {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public byte[] getItemImage() {
-		return itemImage;
-	}
-	public void setItemImage(byte[] itemImage) {
-		this.itemImage = itemImage;
-	}
-	public String getItemCategory() {
-		return itemCategory;
-	}
-	public void setItemCategory(String itemCategory) {
-		this.itemCategory = itemCategory;
-	}
-	public Float getPrice() {
-		return price;
-	}
-	public void setPrice(Float price) {
-		this.price = price;
-	}
+	
 	public Long getQuantity() {
 		return quantity;
 	}

@@ -39,5 +39,13 @@ public class InventoryController {
 		return inventoryService.getInventoryList();
 	}
 	
+	
+	
+	@RequestMapping(value = "/deleteInventory", method = RequestMethod.POST)
+	public boolean deleteInventory(@RequestBody Long inventoryId) {
+		System.out.println("inventoryId--->"+inventoryId);
+		return inventoryService.deleteInventory(inventoryId);
+	}
+	
 
 }

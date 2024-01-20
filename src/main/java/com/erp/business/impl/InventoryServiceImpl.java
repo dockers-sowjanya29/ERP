@@ -2,6 +2,9 @@ package com.erp.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +103,22 @@ public class InventoryServiceImpl implements InventoryService{
 		}
 		
 		return null;
+	}
+
+
+	@Override
+	@Transactional
+	public boolean deleteInventory(Long inventoryId) {
+		Optional<Inventory> optInventory =inventoryRepository.findById(inventoryId);
+		if(optInventory!=null && optInventory.get()!=null)
+		{
+			Inventory inv= optInventory.get();
+			 issueDetailsRepository.deleteIssueInventory(inv.getId());
+			
+			inventoryRepository.delete(inv);
+			return true;
+		}
+		return false;
 	}
 	
 

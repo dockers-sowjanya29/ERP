@@ -12,5 +12,6 @@ public String saveInventory(InventoryRequest inventoryRequest);
 
 public List<NameValuePair> getInventoryOptions();
 public List<InventoryResponse> getInventoryList();
+public boolean deleteInventory(Long inventoryId);
 
 }

@@ -71,6 +71,7 @@ public class InventoryServiceImpl implements InventoryService{
 				invResponse.setId(inv.getId());
 				invResponse.setItemId(inv.getItemId());
 				invResponse.setItemName(inv.getItemName());
+				invResponse.setItemCategory(inv.getItemCategory());
 				Long inventoryQuantity=inv.getQuantity();
 				invResponse.setQuantity(inventoryQuantity);
 				Long issueQuantity=issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());

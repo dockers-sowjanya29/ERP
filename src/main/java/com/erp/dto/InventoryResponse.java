@@ -9,6 +9,7 @@ public class InventoryResponse {
 	private String itemName;
 	private Long quantity;
 	private String status;
+	private String itemCategory;
 	
 	
 	public Long getId() {
@@ -39,6 +40,12 @@ public class InventoryResponse {
 	
 	public Long getQuantity() {
 		return quantity;
+	}
+	public String getItemCategory() {
+		return itemCategory;
+	}
+	public void setItemCategory(String itemCategory) {
+		this.itemCategory = itemCategory;
 	}
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;

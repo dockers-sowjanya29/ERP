@@ -19,59 +19,43 @@ import com.erp.repository.InventoryRepository;
 import com.erp.repository.IssueDetailsRepository;
 
 @Service
-public class InventoryServiceImpl implements InventoryService{
+public class InventoryServiceImpl implements InventoryService {
 
 	@Autowired
 	InventoryRepository inventoryRepository;
-	
+
 	@Autowired
 	IssueDetailsRepository issueDetailsRepository;
-	
-	
-	@Override
-	public String  saveInventory(InventoryRequest inventoryRequest) {
-		
-		System.out.println("called saveInventory"+inventoryRequest.getItemId());
-		Inventory inventory=null;
-		if(inventoryRequest!=null)
-		{
-			
-			if(inventoryRequest.getId()!=null)
-			{
-				
-					Optional<Inventory> optInventory =inventoryRepository.findById(inventoryRequest.getId());
-					if(optInventory!=null && optInventory.get()!=null)
-					{
-						inventory= optInventory.get();
-					}
-			}
-			
-			else {
-			
-						inventory=new Inventory();
-						
-			
-			      }
-						BeanUtils.copyProperties(inventoryRequest, inventory);
-						inventoryRepository.save(inventory);
-						return "data saved successfully";
-			
-			
-		}
-		return null;
-	}
 
+	@Override
+	public long saveInventory(InventoryRequest inventoryRequest) {
+
+		Inventory inventory = null;
+		if (inventoryRequest != null) {
+			if (inventoryRequest.getId() != null) {
+				inventory = getInventory(inventoryRequest.getId());
+			}
+			else {
+				inventory = new Inventory();
+			}
+			BeanUtils.copyProperties(inventoryRequest, inventory);
+			inventory = inventoryRepository.save(inventory);
+			if(inventory != null) {
+				return inventory.getId();
+			}
+		}
+		return 0;
+	}
 
 	@Override
 	public List<NameValuePair> getInventoryOptions() {
-		
-		List<Inventory> listInventories=inventoryRepository.findAll();
-		
-		if(listInventories!=null & !listInventories.isEmpty())
-		{
-			List<NameValuePair> list=new ArrayList<>(); 
-			for(Inventory inv: listInventories) {
-				NameValuePair np=new NameValuePair();
+
+		List<Inventory> listInventories = inventoryRepository.findAll();
+
+		if (listInventories != null & !listInventories.isEmpty()) {
+			List<NameValuePair> list = new ArrayList<>();
+			for (Inventory inv : listInventories) {
+				NameValuePair np = new NameValuePair();
 				np.setName(inv.getItemName());
 				np.setValue(inv.getId().toString());
 				list.add(np);
@@ -81,67 +65,70 @@ public class InventoryServiceImpl implements InventoryService{
 		return null;
 	}
 
-
 	@Override
 	public List<InventoryResponse> getInventoryList() {
-		List<Inventory> listInventories=inventoryRepository.findAll();
-		if(listInventories!=null & !listInventories.isEmpty())
-		{
-			List<InventoryResponse> list=new ArrayList<>(); 
-			for(Inventory inv: listInventories) {
-				InventoryResponse invResponse=new InventoryResponse();
+		List<Inventory> listInventories = inventoryRepository.findAll();
+		if (listInventories != null & !listInventories.isEmpty()) {
+			List<InventoryResponse> list = new ArrayList<>();
+			for (Inventory inv : listInventories) {
+				InventoryResponse invResponse = new InventoryResponse();
 				invResponse.setId(inv.getId());
 				invResponse.setItemId(inv.getItemId());
 				invResponse.setItemName(inv.getItemName());
 				invResponse.setItemCategory(inv.getItemCategory());
 				invResponse.setPrice(inv.getPrice());
-				Long inventoryQuantity=inv.getQuantity();
+				Long inventoryQuantity = inv.getQuantity();
 				invResponse.setQuantity(inventoryQuantity);
-				Long issueQuantity=issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());
-				
-				System.out.println("issueQuantity--->>"+issueQuantity);
-				if(issueQuantity!=null && issueQuantity>0 ) {
-					
-					
-				
-						if(inventoryQuantity>issueQuantity)
-						{
-							invResponse.setStatus("In Stock");
-						}
-						else
-						{
-							invResponse.setStatus("Out Of Stock");
-				         }
-				}
-				else {
+				Long issueQuantity = issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());
+
+				if (issueQuantity != null && issueQuantity > 0) {
+
+					if (inventoryQuantity > issueQuantity) {
+						invResponse.setStatus("In Stock");
+					} else {
+						invResponse.setStatus("Out Of Stock");
+					}
+				} else {
 					invResponse.setStatus("Pending");
 				}
-				
+
 				list.add(invResponse);
 			}
 			return list;
 		}
-		
+
 		return null;
 	}
-
 
 	@Override
 	@Transactional
 	public boolean deleteInventory(Long inventoryId) {
-		Optional<Inventory> optInventory =inventoryRepository.findById(inventoryId);
-		if(optInventory!=null && optInventory.get()!=null)
-		{
-			Inventory inv= optInventory.get();
-			 issueDetailsRepository.deleteIssueInventory(inv.getId());
-			
+		Inventory inv = getInventory(inventoryId);
+		if (inv != null) {
+			issueDetailsRepository.deleteIssueInventory(inv.getId());
 			inventoryRepository.delete(inv);
 			return true;
 		}
 		return false;
 	}
 	
-	
-	
+	private Inventory getInventory(Long inventoryId) {
+		Optional<Inventory> optInventory = inventoryRepository.findById(inventoryId);
+		if (optInventory != null && optInventory.get() != null) {
+			return optInventory.get();
+		}
+		return null;
+	}
+
+	@Override
+	public String uplaodImage(Long inventoryId, byte[] imageContent) {
+		Inventory inv = getInventory(inventoryId);
+		if (inv != null) {
+			inv.setItemImage(imageContent);
+			inventoryRepository.save(inv);
+			return "Data saved successfully";
+		}
+		return null;
+	}
 
 }

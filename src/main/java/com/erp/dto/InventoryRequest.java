@@ -7,7 +7,7 @@ public class InventoryRequest {
 	
 	private Long id;
 	//private List<IssueDetailsRequest> issueDetailsRequests = null;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private byte[] itemImage;
 	private String itemCategory;
@@ -21,10 +21,11 @@ public class InventoryRequest {
 		this.id = id;
 	}
 
-	public Long getItemId() {
+	
+	public String getItemId() {
 		return itemId;
 	}
-	public void setItemId(Long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 	public String getItemName() {

@@ -23,7 +23,7 @@ public class Inventory {
 
 	
 	@Column(name = "ITEM_ID")
-	private Long itemId;
+	private String itemId;
 
 	@Column(name = "ITEM_NAME")
 	private String itemName;
@@ -56,12 +56,15 @@ public class Inventory {
 	}
 
 
-	public Long getItemId() {
+
+
+
+	public String getItemId() {
 		return itemId;
 	}
 
 
-	public void setItemId(Long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 

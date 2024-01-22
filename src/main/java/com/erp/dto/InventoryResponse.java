@@ -5,13 +5,20 @@ package com.erp.dto;
 public class InventoryResponse {
 	
 	private Long id;
-	private Long itemId;
+	private String itemId;
 	private String itemName;
 	private Long quantity;
 	private String status;
 	private String itemCategory;
+	private Float price;
 	
 	
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -25,10 +32,11 @@ public class InventoryResponse {
 		this.id = id;
 	}
 	
-	public Long getItemId() {
+
+	public String getItemId() {
 		return itemId;
 	}
-	public void setItemId(Long itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 	public String getItemName() {

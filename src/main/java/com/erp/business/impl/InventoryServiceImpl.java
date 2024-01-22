@@ -31,13 +31,32 @@ public class InventoryServiceImpl implements InventoryService{
 	@Override
 	public String  saveInventory(InventoryRequest inventoryRequest) {
 		
+		System.out.println("called saveInventory"+inventoryRequest.getItemId());
 		Inventory inventory=null;
 		if(inventoryRequest!=null)
 		{
-			inventory=new Inventory();
-			BeanUtils.copyProperties(inventoryRequest, inventory);
-			inventoryRepository.save(inventory);
-			return "data saved successfully";
+			
+			if(inventoryRequest.getId()!=null)
+			{
+				
+					Optional<Inventory> optInventory =inventoryRepository.findById(inventoryRequest.getId());
+					if(optInventory!=null && optInventory.get()!=null)
+					{
+						inventory= optInventory.get();
+					}
+			}
+			
+			else {
+			
+						inventory=new Inventory();
+						
+			
+			      }
+						BeanUtils.copyProperties(inventoryRequest, inventory);
+						inventoryRepository.save(inventory);
+						return "data saved successfully";
+			
+			
 		}
 		return null;
 	}
@@ -75,6 +94,7 @@ public class InventoryServiceImpl implements InventoryService{
 				invResponse.setItemId(inv.getItemId());
 				invResponse.setItemName(inv.getItemName());
 				invResponse.setItemCategory(inv.getItemCategory());
+				invResponse.setPrice(inv.getPrice());
 				Long inventoryQuantity=inv.getQuantity();
 				invResponse.setQuantity(inventoryQuantity);
 				Long issueQuantity=issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());
@@ -120,6 +140,8 @@ public class InventoryServiceImpl implements InventoryService{
 		}
 		return false;
 	}
+	
+	
 	
 
 }

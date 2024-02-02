@@ -16,7 +16,6 @@ import com.erp.dto.SchoolResponse;
 
 @RestController
 @RequestMapping("controller/erp/school")
-@CrossOrigin(origins = "http://localhost:4200")
 public class SchoolController {
 
 	@Autowired

@@ -34,10 +34,11 @@ public class Inventory {
 
 	
 
-	@Column(name = "ITEM_CATEGORY")
-	private String itemCategory;
+	@Column(name = "ITEM_CATEGORY_REF_ID")
+	private Long itemCategoryRefId;
 	
 	
+
 	@Column(name = "PRICE")
 	private Float price;
 	
@@ -89,16 +90,6 @@ public class Inventory {
 	}
 
 
-	public String getItemCategory() {
-		return itemCategory;
-	}
-
-
-	public void setItemCategory(String itemCategory) {
-		this.itemCategory = itemCategory;
-	}
-
-
 	public Float getPrice() {
 		return price;
 	}
@@ -120,7 +111,16 @@ public class Inventory {
 	
 	
 	
-	
+
+	public Long getItemCategoryRefId() {
+		return itemCategoryRefId;
+	}
+
+
+	public void setItemCategoryRefId(Long itemCategoryRefId) {
+		this.itemCategoryRefId = itemCategoryRefId;
+	}
+
 	
 	
 	

@@ -14,7 +14,6 @@ import com.erp.dto.IssueDetailsRequest;
 
 @RestController
 @RequestMapping("controller/erp/issueDetails")
-@CrossOrigin(origins = "http://localhost:4200")
 public class IssueController {
 
 	
@@ -24,10 +23,7 @@ public class IssueController {
 
 	@RequestMapping(value = "/saveIssueDetails", method = RequestMethod.POST)
 	public String saveIssueDetails(@RequestBody IssueDetailsRequest issueDetailsRequest) {
-		System.out.println("caLLED saveIssueDetails");
-		System.out.println("in saveIssueDetails--->>"+issueDetailsRequest.getIssueTo());
-		System.out.println("in saveIssueDetails*****>>"+issueDetailsRequest.getInventoryId());
-		System.out.println("in saveIssueDetails*****>>"+issueDetailsRequest.getQuantity());
+		
 		boolean result= issueDetailsService.saveIssueDetails(issueDetailsRequest);
 		
 	

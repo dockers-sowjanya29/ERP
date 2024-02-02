@@ -15,8 +15,6 @@ import com.erp.dto.RoleResponse;
 
 @RestController
 @RequestMapping("controller/erp/role")
-@CrossOrigin(origins="http://localhost:4200")
-
 public class RoleController {
 
 	@Autowired

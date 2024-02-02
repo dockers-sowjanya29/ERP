@@ -9,7 +9,8 @@ public class InventoryResponse {
 	private String itemName;
 	private Long quantity;
 	private String status;
-	private String itemCategory;
+	private Long itemCategoryRefId;
+	
 	private Float price;
 	
 	
@@ -49,16 +50,16 @@ public class InventoryResponse {
 	public Long getQuantity() {
 		return quantity;
 	}
-	public String getItemCategory() {
-		return itemCategory;
-	}
-	public void setItemCategory(String itemCategory) {
-		this.itemCategory = itemCategory;
-	}
+
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
 	
-	
+	public Long getItemCategoryRefId() {
+		return itemCategoryRefId;
+	}
+	public void setItemCategoryRefId(Long itemCategoryRefId) {
+		this.itemCategoryRefId = itemCategoryRefId;
+	}
 
 }

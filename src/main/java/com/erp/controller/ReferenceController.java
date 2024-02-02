@@ -14,7 +14,6 @@ import com.erp.dto.NameValuePair;
 
 @RestController
 @RequestMapping("controller/erp/reference")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ReferenceController {
 	
 	@Autowired

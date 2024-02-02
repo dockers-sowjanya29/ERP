@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.business.InventoryService;
+import com.erp.dto.InventoryOptions;
 import com.erp.dto.InventoryRequest;
 import com.erp.dto.InventoryResponse;
 import com.erp.dto.NameValuePair;
@@ -48,16 +49,23 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public List<NameValuePair> getInventoryOptions() {
+	public List<InventoryOptions> getInventoryOptions() {
 
 		List<Inventory> listInventories = inventoryRepository.findAll();
 
 		if (listInventories != null & !listInventories.isEmpty()) {
-			List<NameValuePair> list = new ArrayList<>();
+			List<InventoryOptions> list = new ArrayList<>();
 			for (Inventory inv : listInventories) {
-				NameValuePair np = new NameValuePair();
-				np.setName(inv.getItemName());
-				np.setValue(inv.getId().toString());
+				InventoryOptions np = new InventoryOptions();
+				np.setInventoryName(inv.getItemName());
+				np.setInventoryId(inv.getId());
+				//quantity label
+				Long issueQuantity = issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());
+				if(issueQuantity!=null) {
+				np.setAvailableQuantity(inv.getQuantity()-issueQuantity);}
+				else {
+					np.setAvailableQuantity(inv.getQuantity());
+				}
 				list.add(np);
 			}
 			return list;
@@ -75,7 +83,7 @@ public class InventoryServiceImpl implements InventoryService {
 				invResponse.setId(inv.getId());
 				invResponse.setItemId(inv.getItemId());
 				invResponse.setItemName(inv.getItemName());
-				invResponse.setItemCategory(inv.getItemCategory());
+				invResponse.setItemCategoryRefId(inv.getItemCategoryRefId());
 				invResponse.setPrice(inv.getPrice());
 				Long inventoryQuantity = inv.getQuantity();
 				invResponse.setQuantity(inventoryQuantity);

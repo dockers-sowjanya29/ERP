@@ -4,7 +4,7 @@ public class SectionDetailsRequest {
 	
     private Long id;
 	
-	private String classId;
+	private Long classId;
 	
 	private String sectionName;
 	
@@ -20,11 +20,13 @@ public class SectionDetailsRequest {
 		this.id = id;
 	}
 
-	public String getClassId() {
+
+
+	public Long getClassId() {
 		return classId;
 	}
 
-	public void setClassId(String classId) {
+	public void setClassId(Long classId) {
 		this.classId = classId;
 	}
 

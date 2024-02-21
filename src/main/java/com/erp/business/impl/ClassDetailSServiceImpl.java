@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +16,16 @@ import com.erp.dto.ClassDetailsResponse;
 import com.erp.dto.NameValuePair;
 import com.erp.entity.ClassDetails;
 import com.erp.repository.ClassDetailsRepository;
+import com.erp.repository.SectionDetailsRepository;
 
 @Service
 public class ClassDetailSServiceImpl implements ClassDetailsService{
 	
 	@Autowired
 	ClassDetailsRepository classDetailsRepository;
+	
+	@Autowired
+	SectionDetailsRepository sectionDetailsRepository;
 	
 	@Override
 	public String saveClassDetails(ClassDetailsRequest classDetailsRequest) {
@@ -41,7 +47,7 @@ public class ClassDetailSServiceImpl implements ClassDetailsService{
 		return null;
 	}
 	
-	
+
 	private ClassDetails getClassDetails(Long classId) {
 		Optional<ClassDetails> optClassDetails = classDetailsRepository.findById(classId);
 		if (optClassDetails != null && optClassDetails.get() != null) {
@@ -77,6 +83,18 @@ public class ClassDetailSServiceImpl implements ClassDetailsService{
 			nameValuePairs.add(nameValuePair);
 		}
 		return nameValuePairs;
+	}
+
+
+	@Override
+	@Transactional
+	public boolean deleteClassDetails(Long id) {
+		if(id!=null){
+	     	 sectionDetailsRepository.deleteSectionDetails(id);
+		     classDetailsRepository.deleteById(id);
+		     return true;
+		}	
+		return false;
 	}
 	
 }

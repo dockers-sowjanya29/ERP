@@ -1,22 +1,10 @@
-package com.erp.entity;
+package com.erp.dto;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
-@Entity
-@Table (name ="subject_details") 
-public class SubjectDetails {
+public class SubjectDetailsResponse {
 	
-
-	@Id
-	@Column(name="SUBJECT_ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBJECT_ID_SEQUENCE")
-	@SequenceGenerator(name = "SUBJECT_ID_SEQUENCE", sequenceName = "SUBJECT_ID_SEQUENCE", allocationSize = 1)
+	@Column(name ="SUBJECT_ID")
 	private Long  id; 
 	
 	@Column(name ="SUBJECT_NAME")
@@ -69,6 +57,8 @@ public class SubjectDetails {
 	public void setSubjectDescription(String subjectDescription) {
 		this.subjectDescription = subjectDescription;
 	}
-	 
+	
+	
+	
 
 }

@@ -1,0 +1,52 @@
+2024-02-15 10:23:15,761 INFO org.springframework.boot.StartupInfoLogger [main] Starting ErpProjectApplication using Java 17.0.9 on DESKTOP-5E5VO5S with PID 13096 (D:\ERP-Project-Jan24\ERP\target\classes started by sowja in D:\ERP-Project-Jan24\ERP)
+2024-02-15 10:23:15,769 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.7.17, Spring v5.3.30
+2024-02-15 10:23:15,772 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-02-15 10:23:16,754 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-15 10:23:16,907 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 134 ms. Found 10 JPA repository interfaces.
+2024-02-15 10:23:17,789 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2024-02-15 10:23:17,802 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-15 10:23:17,808 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2024-02-15 10:23:17,808 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.82]
+2024-02-15 10:23:17,968 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2024-02-15 10:23:17,969 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2103 ms
+2024-02-15 10:23:18,321 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-02-15 10:23:18,826 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-02-15 10:23:18,894 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-15 10:23:18,982 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-02-15 10:23:19,234 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-02-15 10:23:19,443 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-02-15 10:23:20,587 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-02-15 10:23:20,604 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-15 10:23:21,609 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-15 10:23:22,125 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2024-02-15 10:23:22,156 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2024-02-15 10:23:22,170 INFO org.springframework.boot.StartupInfoLogger [main] Started ErpProjectApplication in 7.254 seconds (JVM running for 7.88)
+2024-02-15 10:25:00,757 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-15 10:25:00,757 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2024-02-15 10:25:00,782 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 25 ms
+2024-02-15 10:56:21,570 INFO org.springframework.boot.StartupInfoLogger [main] Starting ErpProjectApplication using Java 17.0.9 on DESKTOP-5E5VO5S with PID 7680 (D:\ERP-Project-Jan24\ERP\target\classes started by sowja in D:\ERP-Project-Jan24\ERP)
+2024-02-15 10:56:21,575 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.7.17, Spring v5.3.30
+2024-02-15 10:56:21,576 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2024-02-15 10:56:22,446 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-15 10:56:22,549 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 86 ms. Found 10 JPA repository interfaces.
+2024-02-15 10:56:23,936 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2024-02-15 10:56:23,948 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-15 10:56:23,957 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2024-02-15 10:56:23,957 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.82]
+2024-02-15 10:56:24,208 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2024-02-15 10:56:24,208 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 2553 ms
+2024-02-15 10:56:24,634 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2024-02-15 10:56:25,250 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2024-02-15 10:56:25,353 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-15 10:56:25,458 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-02-15 10:56:25,743 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-02-15 10:56:26,055 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.Oracle12cDialect
+2024-02-15 10:56:27,348 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-02-15 10:56:27,361 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-15 10:56:32,827 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-15 10:56:35,388 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2024-02-15 10:56:35,447 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2024-02-15 10:56:35,475 INFO org.springframework.boot.StartupInfoLogger [main] Started ErpProjectApplication in 14.899 seconds (JVM running for 15.532)
+2024-02-15 10:58:22,134 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-3] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-15 10:58:22,135 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Initializing Servlet 'dispatcherServlet'
+2024-02-15 10:58:22,137 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Completed initialization in 2 ms

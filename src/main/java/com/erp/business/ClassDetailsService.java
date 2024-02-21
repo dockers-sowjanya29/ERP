@@ -12,5 +12,6 @@ public interface ClassDetailsService {
 	
 	public List<ClassDetailsResponse> getClassDetailsList();
 	public List<NameValuePair> getClassNamesList();
+	public boolean deleteClassDetails(Long id);
 
 }

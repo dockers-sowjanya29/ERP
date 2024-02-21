@@ -35,5 +35,12 @@ public class ClassDetailsController {
 	public List<NameValuePair> getClassNamesList() {
 		return classDetailsService.getClassNamesList();
 	}
+	
+
+	@RequestMapping(value = "/deleteClassDetails", method = RequestMethod.POST)
+	public boolean deleteClassDetails(@RequestBody Long id) {
+		return classDetailsService.deleteClassDetails(id);
+	}
+	
 
 }

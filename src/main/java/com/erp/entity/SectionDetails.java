@@ -20,7 +20,7 @@ public class SectionDetails {
 	private Long id;
 	
 	@Column(name="CLASS_ID")
-	private String classId;
+	private Long classId;
 	
 	@Column(name="SECTION_NAME")
 	private String sectionName;
@@ -46,12 +46,15 @@ public class SectionDetails {
 	}
 
 
-	public String getClassId() {
+	
+
+
+	public Long getClassId() {
 		return classId;
 	}
 
 
-	public void setClassId(String classId) {
+	public void setClassId(Long classId) {
 		this.classId = classId;
 	}
 

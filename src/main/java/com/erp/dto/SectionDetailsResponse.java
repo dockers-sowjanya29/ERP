@@ -1,9 +1,17 @@
 package com.erp.dto;
 
 public class SectionDetailsResponse {
-	
-    private Long id;
-	
+
+	private Long id;
+
+	private Long classId;
+
+	private String sectionName;
+
+	private String sectionAliasName;
+
+	private String sectionDescription;
+
 	public Long getId() {
 		return id;
 	}
@@ -12,11 +20,13 @@ public class SectionDetailsResponse {
 		this.id = id;
 	}
 
-	public String getClassId() {
+
+
+	public Long getClassId() {
 		return classId;
 	}
 
-	public void setClassId(String classId) {
+	public void setClassId(Long classId) {
 		this.classId = classId;
 	}
 
@@ -43,13 +53,5 @@ public class SectionDetailsResponse {
 	public void setSectionDescription(String sectionDescription) {
 		this.sectionDescription = sectionDescription;
 	}
-
-	private String classId;
-	
-	private String sectionName;
-	
-	private String sectionAliasName;
-	
-	private String sectionDescription;
 
 }

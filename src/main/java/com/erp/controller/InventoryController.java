@@ -26,6 +26,7 @@ public class InventoryController {
 
 	@RequestMapping(value = "/saveInventory", method = RequestMethod.POST)
 	public long saveInventory(@RequestBody InventoryRequest inventoryRequest) {
+		//System.out.println("in inv save---->>"+inventoryRequest.getItemImage1().getName());
 		return inventoryService.saveInventory(inventoryRequest);
 	}
 

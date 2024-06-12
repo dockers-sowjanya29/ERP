@@ -3,7 +3,7 @@ package com.erp.dto;
 
 
 
-public class SchoolRequest {
+public class SchoolProfileRequest {
 
 	private Long id;
 	

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.erp.entity.School;
+import com.erp.entity.SchoolProfile;
 
 @Repository
-public interface SchoolRepository extends JpaRepository<School, Long> {
+public interface SchoolProfileRepository extends JpaRepository<SchoolProfile, Long> {
 
-	public List<School> findBySchoolName(String schoolName);
+	public List<SchoolProfile> findBySchoolName(String schoolName);
 
 }

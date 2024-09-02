@@ -1,0 +1,20 @@
+2024-08-31 00:11:07,481 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12h26m37s278ms600탎600ns).
+2024-08-31 02:06:16,779 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m37s101ms712탎500ns).
+2024-08-31 04:36:11,638 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m19s444ms372탎900ns).
+2024-08-31 05:44:27,205 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h8m15s569ms794탎500ns).
+2024-08-31 05:51:53,658 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m26s406ms678탎300ns).
+2024-08-31 08:43:38,834 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-3] SQL Warning Code: 28002, SQLState: 99999
+2024-08-31 08:43:38,837 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-10] SQL Warning Code: 28002, SQLState: 99999
+2024-08-31 08:43:38,834 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-9] SQL Warning Code: 28002, SQLState: 99999
+2024-08-31 08:43:38,841 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-3] ORA-28002: the password will expire within 6 days
+
+2024-08-31 08:43:38,841 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-10] ORA-28002: the password will expire within 6 days
+
+2024-08-31 08:43:38,841 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-9] ORA-28002: the password will expire within 6 days
+
+2024-08-31 09:12:47,428 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-7] SQL Warning Code: 28002, SQLState: 99999
+2024-08-31 09:12:47,429 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-7] ORA-28002: the password will expire within 6 days
+
+2024-08-31 09:13:12,807 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-9] SQL Warning Code: 28002, SQLState: 99999
+2024-08-31 09:13:12,808 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper$StandardWarningHandler [http-nio-8080-exec-9] ORA-28002: the password will expire within 6 days
+

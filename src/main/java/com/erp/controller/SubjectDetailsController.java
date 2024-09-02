@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.erp.business.SubjectDetailsService;
 import com.erp.dto.NameValuePair;
-import com.erp.dto.SectionDetailsResponse;
 import com.erp.dto.SubjectDetailsRequest;
 import com.erp.dto.SubjectDetailsResponse;
 

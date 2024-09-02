@@ -22,30 +22,43 @@ public class SchoolProfileServiceImpl implements SchoolProfileService {
 	SchoolProfileRepository schoolProfileRepository;
 
 	@Override
-	public String saveSchoolDetails(SchoolProfileRequest schoolreq) {
+	public Long saveSchoolDetails(SchoolProfileRequest schoolreq) {
 
 		SchoolProfile schoolDet = null;
 
 		if (schoolreq != null) {
-			schoolDet = new SchoolProfile();
-			schoolDet.setId(schoolreq.getId());
+			if(schoolreq.getId()!=null ) { 
+				Optional<SchoolProfile> schoolOptional = schoolProfileRepository.findById(schoolreq.getId());
+				if(schoolOptional!=null && schoolOptional.isPresent())
+				{
+					schoolDet = schoolOptional.get();
+				}
+			  }
+			else 
+			{
+			  schoolDet = new SchoolProfile();
+			  schoolDet.setStatus(ErpConstants.STATUS_ACTIVE);
+			}
+		
+			if(schoolDet!=null) {
 			schoolDet.setSchoolName(schoolreq.getSchoolName());
 			schoolDet.setContactNo(schoolreq.getContactNo());
 			schoolDet.setEmailId(schoolreq.getEmailId());
-			schoolDet.setLogo(schoolreq.getLogo().getBytes());
+			//schoolDet.setLogo(schoolreq.getLogo().getBytes());
 			schoolDet.setLocation(schoolreq.getLocation());
 			schoolDet.setWebsite(schoolreq.getWebsite());
-			schoolDet.setStatus(ErpConstants.STATUS_ACTIVE);
-
 			schoolDet = schoolProfileRepository.save(schoolDet); //
-		}
+			
+			}
+		  }	
 
 		if (schoolDet != null) {
-			return schoolDet.getSchoolName();
+			return schoolDet.getId();
 		}
 
-		return null;
-	}
+		return 0L;
+		
+}
 
 	@Override
 	public SchoolProfileResponse getSchoolDetailsById(Long schoolId) {

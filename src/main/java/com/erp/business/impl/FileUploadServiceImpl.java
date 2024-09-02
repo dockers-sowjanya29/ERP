@@ -1,14 +1,14 @@
 package com.erp.business.impl;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.business.FileUploadService;
-import com.erp.entity.Inventory;
+import com.erp.entity.SchoolProfile;
 import com.erp.entity.StaffDetails;
+import com.erp.repository.SchoolProfileRepository;
 import com.erp.repository.StaffDetailsRepository;
 
 @Service
@@ -16,9 +16,12 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 	@Autowired
 	StaffDetailsRepository staffDetailsRepository;
+	
+	@Autowired
+	SchoolProfileRepository schoolProfileRepository;
 
 	@Override
-	public String uplaodImage(Long id, String type, byte[] imageContent) {
+	public String uploadImage(Long id, String type, byte[] imageContent) {
 
 		if (type.equals("STAFF")) {
 
@@ -31,6 +34,18 @@ public class FileUploadServiceImpl implements FileUploadService {
 			}
 
 		}
+		else if(type.equals("PROFILE")) {
+			SchoolProfile profileDetails = getDetails(schoolProfileRepository.findById(id));
+			if (profileDetails != null) {
+				profileDetails.setLogo(imageContent);
+				schoolProfileRepository.save(profileDetails);
+				return "Image saved successfully";
+
+			}	
+			
+		}
+		
+		
 
 		return null;
 	}

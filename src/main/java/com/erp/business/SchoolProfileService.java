@@ -8,7 +8,7 @@ import com.erp.dto.SchoolProfileResponse;
 
 public interface SchoolProfileService {
 	
-	public String saveSchoolDetails(SchoolProfileRequest schoolreq);
+	public Long saveSchoolDetails(SchoolProfileRequest schoolreq);
 	
 	public SchoolProfileResponse getSchoolDetailsById(Long schoolId);
 	public SchoolProfileResponse getSchoolDetailsByName(String schoolName);

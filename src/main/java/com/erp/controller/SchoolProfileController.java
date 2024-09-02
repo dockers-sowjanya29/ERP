@@ -3,7 +3,6 @@ package com.erp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +21,7 @@ public class SchoolProfileController {
 	SchoolProfileServiceImpl schoolProfileServiceImpl;
 
 	@RequestMapping(value = "/saveSchoolProfileDetails", method = RequestMethod.POST)
-	public String saveSchoolDetails(@RequestBody SchoolProfileRequest schoolreq) {
+	public Long saveSchoolDetails(@RequestBody SchoolProfileRequest schoolreq) {
 		return schoolProfileServiceImpl.saveSchoolDetails(schoolreq);
 	}
 	

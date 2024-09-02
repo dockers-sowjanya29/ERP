@@ -10,43 +10,36 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="school_profile_details")
+@Table(name = "school_profile_details")
 public class SchoolProfile {
-	
-	
+
 	@Id
 	@Column(name = "SCHOOL_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SCHOOL_ID_SEQUENCE")
-	@SequenceGenerator(name = "SCHOOL_ID_SEQUENCE",sequenceName = "SCHOOL_ID_SEQUENCE", allocationSize = 1)
+	@SequenceGenerator(name = "SCHOOL_ID_SEQUENCE", sequenceName = "SCHOOL_ID_SEQUENCE", allocationSize = 1)
 	private Long id;
-	
-	
-	
-	 @Lob
-	 @Column(name = "LOGO", length = 1000)
-	//private byte[] imageData;
-	private  byte[] logo;
-	
-	
-	@Column(name="SCHOOL_NAME")
+
+	@Lob
+	@Column(name = "LOGO", length = 1000)
+	private byte[] logo;
+
+	@Column(name = "SCHOOL_NAME")
 	private String schoolName;
-	
-	@Column(name="EMAIL_ID")
+
+	@Column(name = "EMAIL_ID")
 	private String emailId;
-	
-	@Column(name="CONTACTNUMBER")
+
+	@Column(name = "CONTACTNUMBER")
 	private Long contactNo;
-	
-	@Column(name="LOCATION")
+
+	@Column(name = "LOCATION")
 	private String location;
-	
-	@Column(name="WEBSITE")
+
+	@Column(name = "WEBSITE")
 	private String website;
-	
-	@Column(name="STATUS")
+
+	@Column(name = "STATUS")
 	private String status;
-	
-	
 
 	public String getStatus() {
 		return status;
@@ -64,11 +57,11 @@ public class SchoolProfile {
 		this.id = id;
 	}
 
-	public  byte[] getLogo() {
+	public byte[] getLogo() {
 		return logo;
 	}
 
-	public void setLogo( byte[] logo) {
+	public void setLogo(byte[] logo) {
 		this.logo = logo;
 	}
 
@@ -111,11 +104,5 @@ public class SchoolProfile {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	
-	
-	
-	
-	
-	
 
 }

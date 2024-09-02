@@ -26,12 +26,10 @@ public class FileUploadController {
 			String imgData=itemImage.getOriginalFilename();
 			String[] imgDataParts=imgData.split(":");
 			if(imgDataParts.length>1) {
-				//System.out.println("in upload Image"+imgDataParts[0]);
-				//System.out.println("in upload Image"+imgDataParts[1]);
 				Long id = Long.parseLong(imgDataParts[0]);
 				String type = imgDataParts[1];
 			
-				return fileUploadService.uplaodImage(id, type, itemImage.getBytes());
+				return fileUploadService.uploadImage(id, type, itemImage.getBytes());
 			}
 			else {
 				

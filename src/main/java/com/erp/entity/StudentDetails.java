@@ -63,6 +63,12 @@ public class StudentDetails {
 	 @Column(name="Email_ID")
 	 private String emailId;
 	 
+	 @Column(name="class_id")
+	 private int classId;
+	 
+	 @Column(name="SECTION_ID")
+	 private int sectionId;
+	 
 	 
 	 
 	 public Long getId() {
@@ -193,11 +199,7 @@ public class StudentDetails {
 		this.sectionId = sectionId;
 	}
 
-	@Column(name="class_id")
-	 private int classId;
-	 
-	 @Column(name="SECTION_NAME")
-	 private int sectionId;
+	
 	
 
 

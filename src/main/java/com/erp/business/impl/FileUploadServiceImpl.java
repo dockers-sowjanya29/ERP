@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.erp.business.FileUploadService;
 import com.erp.entity.SchoolProfile;
 import com.erp.entity.StaffDetails;
+import com.erp.entity.StudentDetails;
 import com.erp.repository.SchoolProfileRepository;
 import com.erp.repository.StaffDetailsRepository;
+import com.erp.repository.StudentDetailsRepository;
 
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
@@ -19,6 +21,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 	
 	@Autowired
 	SchoolProfileRepository schoolProfileRepository;
+	
+	@Autowired
+	StudentDetailsRepository studentDetailsRepository;
 
 	@Override
 	public String uploadImage(Long id, String type, byte[] imageContent) {
@@ -43,9 +48,17 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 			}	
 			
+	   else if(type.equals("STUDENT")) {
+			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
+			if(studentDetails !=null) {
+				
+				studentDetails.setProfilePhoto(imageContent);
+				//studentDetails.setDocumentPhoto(imageContent);
+				studentDetailsRepository.save(studentDetails);
+				return "Image saved Suuccfully";
+			}
 		}
-		
-		
+	}	
 
 		return null;
 	}

@@ -1,0 +1,8 @@
+2024-11-28 11:23:59,216 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18h10m50s533ms327탎100ns).
+2024-11-28 12:20:09,634 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=35m40s252ms852탎900ns).
+2024-11-28 12:50:39,253 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m29s415ms744탎800ns).
+2024-11-28 12:57:28,407 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s105ms261탎).
+2024-11-28 13:18:49,595 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m51s39ms546탎).
+2024-11-28 13:19:13,393 INFO com.erp.business.impl.RoleMgmtServiceImpl [http-nio-8080-exec-5] inside createRole method.
+2024-11-28 13:39:51,131 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m31s368ms532탎800ns).
+2024-11-28 22:45:50,991 WARN com.zaxxer.hikari.pool.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h59s774ms492탎800ns).

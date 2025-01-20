@@ -186,30 +186,24 @@ public class RoleMgmtServiceImpl implements RoleMgmtService {
 		
 		if (role != null && featureIdsFromUi != null)
 		{
-			//System.out.println("Feature ref ids from Ui");
-			//featureIdsFromUi.forEach(roleFeature -> System.out.println(roleFeature));
 			List<RoleFeature> roleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
-			//System.out.println("From DB");
-			//roleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
-			
-			//
+			//functional programming
 			List<RoleFeature> removeFeatures = roleFeaturesFromDB.stream()
 					.filter(roleFeatureFromDB -> featureIdsFromUi.stream()
 							.allMatch(featureIdFromUi -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
 					.collect(Collectors.toList());
-			System.out.println("To Remove");
 			
 			removeFeatures.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
 			role.getRoleFeatures().removeAll(removeFeatures);
 			role = roleRepository.save(role); // after remove-save
 			List<RoleFeature> updatedsRoleFeaturesFromDB = new ArrayList<>(role.getRoleFeatures());
-			System.out.println("From DB after remove");
+			//System.out.println("From DB after remove");
 			updatedsRoleFeaturesFromDB.forEach(roleFeature -> System.out.println(roleFeature.getFeatureRefId()));
 			List<Long> insertFeatures = featureIdsFromUi.stream()
 					.filter(featureIdFromUi -> updatedsRoleFeaturesFromDB.stream()
 							.allMatch(roleFeatureFromDB -> roleFeatureFromDB.getFeatureRefId() != featureIdFromUi))
 					.collect(Collectors.toList());
-			System.out.println("Feature ref ids to insert");
+			//System.out.println("Feature ref ids to insert");
 			insertFeatures.forEach(roleFeature -> System.out.println(roleFeature));
 			List<RoleFeature> roleFeaturesToInsert = new ArrayList<>();
 			for (Long featureId : insertFeatures) {

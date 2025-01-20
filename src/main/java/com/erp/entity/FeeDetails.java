@@ -4,9 +4,12 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,20 +24,66 @@ public class FeeDetails {
 	private Long id;
 	
 
-	@Column(name="student_id")
-	private String className;
+	//@Column(name="student_id")
+	//private String studentId;
 	
 	@Column(name="total_amount")
-	private String classAliasName;
+	private double totalAmount;
 	
 	@Column(name="amount_paid")
-	private String classDescription;
+	private double amountPaid;
 	
 	@Column(name="paid_date")
-	private Calendar paid_date;
+	private Calendar paidDate;
 	
 	@Column(name="next_due_date")
-	private Calendar next_due_date;
+	private Calendar nextDueDate;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "student_id")
+	private StudentDetails studentDetails; 
+	
+	
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public double getAmountPaid() {
+		return amountPaid;
+	}
+
+	public void setAmountPaid(double amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+
+	public Calendar getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(Calendar paidDate) {
+		this.paidDate = paidDate;
+	}
+
+	public Calendar getNextDueDate() {
+		return nextDueDate;
+	}
+
+	public void setNextDueDate(Calendar nextDueDate) {
+		this.nextDueDate = nextDueDate;
+	}
+
+	public StudentDetails getStudentDetails() {
+		return studentDetails;
+	}
+
+	public void setStudentDetails(StudentDetails studentDetails) {
+		this.studentDetails = studentDetails;
+	}
 
 	public Long getId() {
 		return id;
@@ -44,45 +93,8 @@ public class FeeDetails {
 		this.id = id;
 	}
 
-	public String getClassName() {
-		return className;
-	}
+	
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public String getClassAliasName() {
-		return classAliasName;
-	}
-
-	public void setClassAliasName(String classAliasName) {
-		this.classAliasName = classAliasName;
-	}
-
-	public String getClassDescription() {
-		return classDescription;
-	}
-
-	public void setClassDescription(String classDescription) {
-		this.classDescription = classDescription;
-	}
-
-	public Calendar getPaid_date() {
-		return paid_date;
-	}
-
-	public void setPaid_date(Calendar paid_date) {
-		this.paid_date = paid_date;
-	}
-
-	public Calendar getNext_due_date() {
-		return next_due_date;
-	}
-
-	public void setNext_due_date(Calendar next_due_date) {
-		this.next_due_date = next_due_date;
-	}
 	
 	
 	

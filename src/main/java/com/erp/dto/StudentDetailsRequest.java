@@ -5,37 +5,109 @@ import java.util.Calendar;
 public class StudentDetailsRequest {
 	
 	 private Long id;
-	 private  byte[] ProfilePhoto;	
-	 private String StudentName;
+	// private  byte[] profilePhoto;	
+	 private String studentName;
 	 private int age;
-	 private String bloodGroup;
+	 private String bloodGroupName;
 	 private String city;
 	 private Calendar dob;
-	 private  byte[] DocumentPhoto;	
-     private String documentName;
-	 private int documentNo;
+	// private  byte[] documentPhoto;	
+	 
+	 private String documentName;
+	 private int documentNo; 
 	 private String fatherName;
      private String motherName;
-     private String ContactNo;
+     private String contactNo;
+	
 	 private String emailId;
+	 private FeeDetailsRequest feeDetails;
+	 private Calendar nextDueDate;
+	 private Calendar paidDate;
+	 private double totalAmount;
+	 private double amountPaid; 
+	 private int sectionId;
+	 private int classId;
 	 
+	 
+		/*
+		 * public byte[] getDocumentPhoto() { return documentPhoto; } public void
+		 * setDocumentPhoto(byte[] documentPhoto) { this.documentPhoto = documentPhoto;
+		 * }
+		 */
+	/*
+	 * public byte[] getProfilePhoto() { return profilePhoto; } public void
+	 * setProfilePhoto(byte[] profilePhoto) { this.profilePhoto = profilePhoto; }
+	 */
+	
+	 
+	 
+	 public String getContactNo() {
+			return contactNo;
+		}
+		public void setContactNo(String contactNo) {
+			this.contactNo = contactNo;
+		}
+		
+		
+	 public int getSectionId() {
+		return sectionId;
+	}
+	public void setSectionId(int sectionId) {
+		this.sectionId = sectionId;
+	}
+	public int getClassId() {
+		return classId;
+	}
+	public void setClassId(int classId) {
+		this.classId = classId;
+	}
+	
+	 
+		public double getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	public double getAmountPaid() {
+		return amountPaid;
+	}
+	public void setAmountPaid(double amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+		public Calendar getPaidDate() {
+			return paidDate;
+		}
+		public void setPaidDate(Calendar paidDate) {
+			this.paidDate = paidDate;
+		}
+		public Calendar getNextDueDate() {
+			return nextDueDate;
+		}
+		public void setNextDueDate(Calendar nextDueDate) {
+			this.nextDueDate = nextDueDate;
+		}
+		
+	 
+	public FeeDetailsRequest getFeeDetails() {
+		return feeDetails;
+	}
+	public void setFeeDetails(FeeDetailsRequest feeDetails) {
+		this.feeDetails = feeDetails;
+	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public byte[] getProfilePhoto() {
-		return ProfilePhoto;
-	}
-	public void setProfilePhoto(byte[] profilePhoto) {
-		ProfilePhoto = profilePhoto;
-	}
+
+	
 	public String getStudentName() {
-		return StudentName;
+		return studentName;
 	}
 	public void setStudentName(String studentName) {
-		StudentName = studentName;
+		this.studentName = studentName;
 	}
 	public int getAge() {
 		return age;
@@ -43,11 +115,11 @@ public class StudentDetailsRequest {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getBloodGroup() {
-		return bloodGroup;
+	public String getBloodGroupName() {
+		return bloodGroupName;
 	}
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
+	public void setBloodGroupName(String bloodGroup) {
+		this.bloodGroupName = bloodGroup;
 	}
 	public String getCity() {
 		return city;
@@ -61,12 +133,7 @@ public class StudentDetailsRequest {
 	public void setDob(Calendar dob) {
 		this.dob = dob;
 	}
-	public byte[] getDocumentPhoto() {
-		return DocumentPhoto;
-	}
-	public void setDocumentPhoto(byte[] documentPhoto) {
-		DocumentPhoto = documentPhoto;
-	}
+
 	public String getDocumentName() {
 		return documentName;
 	}
@@ -91,12 +158,7 @@ public class StudentDetailsRequest {
 	public void setMotherName(String motherName) {
 		this.motherName = motherName;
 	}
-	public String getContactNo() {
-		return ContactNo;
-	}
-	public void setContactNo(String contactNo) {
-		ContactNo = contactNo;
-	}
+
 	public String getEmailId() {
 		return emailId;
 	}

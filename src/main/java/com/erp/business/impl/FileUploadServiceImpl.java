@@ -47,18 +47,34 @@ public class FileUploadServiceImpl implements FileUploadService {
 				return "Image saved successfully";
 
 			}	
+		}
 			
 	   else if(type.equals("STUDENT")) {
 			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
 			if(studentDetails !=null) {
-				
 				studentDetails.setProfilePhoto(imageContent);
-				//studentDetails.setDocumentPhoto(imageContent);
-				studentDetailsRepository.save(studentDetails);
-				return "Image saved Suuccfully";
+				//studentDetailsRepository.save(studentDetails);
+				//studentDetailsRepository.flush();
+				studentDetailsRepository.saveAndFlush(studentDetails);
+				System.out.println("STUDENT--->"+ studentDetails.getId());
+				System.out.println("STUDENT--->"+ studentDetails.getProfilePhoto());
+				return "Student saved Successfully";
 			}
 		}
-	}	
+		
+		
+	   else if(type.equals("DOCIMAGE")) {
+			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
+			if(studentDetails !=null) {
+				studentDetails.setDocumentPhoto(imageContent);
+				studentDetailsRepository.save(studentDetails);
+				System.out.println("DOCIMAGE--->"+ studentDetails.getId());
+				System.out.println("DOCIMAGE--->"+ studentDetails.getDocumentPhoto());
+				System.out.println("DOCIMAGE--->"+ studentDetails.getProfilePhoto());
+				return "Document saved Successfully";
+			}
+		}
+		
 
 		return null;
 	}

@@ -1,13 +1,18 @@
 package com.erp.entity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,16 +29,18 @@ public class StudentDetails {
 		
 	 @Lob
 	 @Column(name = "Profile_photo", length = 1000)
-	 private  byte[] ProfilePhoto;	
+	 private  byte[] profilePhoto;	
 	
 	 @Column(name="Student_Name")
-	 private String StudentName;
+	 private String studentName;
 
-	 @Column(name="Age")
+	 
+
+	@Column(name="Age")
 	 private int age;
 	 
 	 @Column(name="Blood_Group")
-	 private String bloodGroup;
+	 private String bloodGroupName;
 	 
 	 @Column(name="City")
 	 private String city;
@@ -43,13 +50,7 @@ public class StudentDetails {
 	 
 	 @Lob
 	 @Column(name = "Document_Photo", length = 1000)
-	 private  byte[] DocumentPhoto;	
-	 
-	 @Column(name="Document_Name")
-	 private String documentName;
-	 
-	 @Column(name="Document_number")
-	 private int documentNo;
+	 private  byte[] documentPhoto;	
 	 
 	 @Column(name="Father_Name")
 	 private String fatherName;
@@ -58,7 +59,7 @@ public class StudentDetails {
 	 private String motherName;
 	 
 	 @Column(name="Contact_no")
-	 private String ContactNo;
+	 private String contactNo;
 	 
 	 @Column(name="Email_ID")
 	 private String emailId;
@@ -70,8 +71,52 @@ public class StudentDetails {
 	 private int sectionId;
 	 
 	 
+	 @OneToMany(mappedBy = "studentDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+		private List<FeeDetails>  feeDetails= new ArrayList<>();	
 	 
-	 public Long getId() {
+	 
+	 public byte[] getProfilePhoto() {
+		return profilePhoto;
+	}
+
+	public void setProfilePhoto(byte[] profilePhoto) {
+		this.profilePhoto = profilePhoto;
+	}
+
+	public byte[] getDocumentPhoto() {
+		return documentPhoto;
+	}
+
+	public void setDocumentPhoto(byte[] documentPhoto) {
+		this.documentPhoto = documentPhoto;
+	}
+
+	@Column(name="Document_Name")
+	 private String documentName;
+	 
+	 @Column(name="Document_number")
+	 private int documentNo;
+	 
+	 public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	
+	 
+	 
+	 public List<FeeDetails> getFeeDetails() {
+		return feeDetails;
+	}
+
+	public void setFeeDetails(List<FeeDetails> feeDetails) {
+		this.feeDetails = feeDetails;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -79,20 +124,14 @@ public class StudentDetails {
 		this.id = id;
 	}
 
-	public byte[] getProfilePhoto() {
-		return ProfilePhoto;
-	}
 
-	public void setProfilePhoto(byte[] profilePhoto) {
-		ProfilePhoto = profilePhoto;
-	}
 
 	public String getStudentName() {
-		return StudentName;
+		return studentName;
 	}
 
 	public void setStudentName(String studentName) {
-		StudentName = studentName;
+		this.studentName = studentName;
 	}
 
 	public int getAge() {
@@ -103,12 +142,12 @@ public class StudentDetails {
 		this.age = age;
 	}
 
-	public String getBloodGroup() {
-		return bloodGroup;
+	public String getBloodGroupName() {
+		return bloodGroupName;
 	}
 
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
+	public void setBloodGroupName(String bloodGroupName) {
+		this.bloodGroupName = bloodGroupName;
 	}
 
 	public String getCity() {
@@ -127,13 +166,7 @@ public class StudentDetails {
 		this.dob = dob;
 	}
 
-	public byte[] getDocumentPhoto() {
-		return DocumentPhoto;
-	}
-
-	public void setDocumentPhoto(byte[] documentPhoto) {
-		DocumentPhoto = documentPhoto;
-	}
+	
 
 	public String getDocumentName() {
 		return documentName;
@@ -167,13 +200,7 @@ public class StudentDetails {
 		this.motherName = motherName;
 	}
 
-	public String getContactNo() {
-		return ContactNo;
-	}
 
-	public void setContactNo(String contactNo) {
-		ContactNo = contactNo;
-	}
 
 	public String getEmailId() {
 		return emailId;

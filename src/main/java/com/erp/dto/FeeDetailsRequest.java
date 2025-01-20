@@ -9,12 +9,27 @@ public class FeeDetailsRequest {
 	private String className;
 	private String classAliasName;
 	private String classDescription;
-	private Calendar paid_date;
-	private Calendar next_due_date;
-	
-	
-	
+	private Calendar paidDate;
+	private Calendar nextDueDate;
 	private Long id;
+	
+	
+	public Calendar getPaidDate() {
+		return paidDate;
+	}
+	public void setPaidDate(Calendar paidDate) {
+		this.paidDate = paidDate;
+	}
+	public Calendar getNextDueDate() {
+		return nextDueDate;
+	}
+	public void setNextDueDate(Calendar nextDueDate) {
+		this.nextDueDate = nextDueDate;
+	}
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,18 +54,6 @@ public class FeeDetailsRequest {
 	public void setClassDescription(String classDescription) {
 		this.classDescription = classDescription;
 	}
-	public Calendar getPaid_date() {
-		return paid_date;
-	}
-	public void setPaid_date(Calendar paid_date) {
-		this.paid_date = paid_date;
-	}
-	public Calendar getNext_due_date() {
-		return next_due_date;
-	}
-	public void setNext_due_date(Calendar next_due_date) {
-		this.next_due_date = next_due_date;
-	}
-	
+
 
 }

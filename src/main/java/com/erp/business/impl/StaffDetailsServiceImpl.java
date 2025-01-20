@@ -38,7 +38,7 @@ public class StaffDetailsServiceImpl implements StaffDetailsService{
 		
 		if(staffDetailsRequest!=null) {
 			
-			System.out.println("In Service Impl"+staffDetailsRequest.getSectionId());
+			//System.out.println("In Service Impl"+staffDetailsRequest.getSectionId());
 			StaffDetails staffDetails=new StaffDetails();
 			staffDetails.setCategoryId(staffDetailsRequest.getCategoryId());
 			staffDetails.setDob(staffDetailsRequest.getDob());
@@ -63,8 +63,9 @@ public class StaffDetailsServiceImpl implements StaffDetailsService{
 
 	@Override
 	public List<StaffDetailsResponse> getStaffList() {
-		List<StaffDetailsResponse> staffDetailsResponses =new ArrayList<StaffDetailsResponse>();
+		List<StaffDetailsResponse> staffDetailsResponseList =new ArrayList<StaffDetailsResponse>();
 		List<StaffDetails> staffDetailsList=staffDetailsRepository.findAll();
+		
 		if(staffDetailsList!=null && !staffDetailsList.isEmpty()) {
 			for(StaffDetails staffDetails:staffDetailsList)
 			{
@@ -75,20 +76,24 @@ public class StaffDetailsServiceImpl implements StaffDetailsService{
 					staffDetailsResponse.setStaffName(staffDetails.getStaffName());
 					staffDetailsResponse.setPhoneNo(staffDetails.getPhoneNo());
 					staffDetailsResponse.setCategoryId(staffDetails.getCategoryId());
-					staffDetailsResponses.add(staffDetailsResponse);
+					staffDetailsResponseList.add(staffDetailsResponse);
 				}
 			}
 		}
 		
-		return staffDetailsResponses;
+		return staffDetailsResponseList;
 	}
 
 
 	@Override
 	public boolean deleteStaff(Long id) {
+		
+		System.out.println(" in delete method"+id);
 		if(id!=null)
 		{
+			System.out.println(" in delete method2"+id);
 			staffDetailsRepository.deleteById(id);
+			System.out.println(" after delete method2"+id);
 			return true;
 		}
 		return false;

@@ -11,7 +11,7 @@ public class StudentDetailsRequest {
 	 private int age;
 	 private String bloodGroupName;
 	 private String city;
-	 private int classId;
+	 private Long classId;
 	 private String contactNo;
 	 private Calendar dob;
 	 //Document list
@@ -21,7 +21,7 @@ public class StudentDetailsRequest {
 	 //Fee List
 	 private List<FeeDetailsRequest> fees;
      private String motherName;
-	 private int sectionId;
+	 private Long sectionId;
 	 private String studentName;
 	 private double totalAmount;
 	public Long getId() {
@@ -42,12 +42,6 @@ public class StudentDetailsRequest {
 	}
 	public void setCity(String city) {
 		this.city = city;
-	}
-	public int getClassId() {
-		return classId;
-	}
-	public void setClassId(int classId) {
-		this.classId = classId;
 	}
 	public String getContactNo() {
 		return contactNo;
@@ -91,12 +85,6 @@ public class StudentDetailsRequest {
 	public void setMotherName(String motherName) {
 		this.motherName = motherName;
 	}
-	public int getSectionId() {
-		return sectionId;
-	}
-	public void setSectionId(int sectionId) {
-		this.sectionId = sectionId;
-	}
 	public String getStudentName() {
 		return studentName;
 	}
@@ -114,6 +102,18 @@ public class StudentDetailsRequest {
 	}
 	public void setBloodGroupName(String bloodGroupName) {
 		this.bloodGroupName = bloodGroupName;
+	}
+	public Long getClassId() {
+		return classId;
+	}
+	public void setClassId(Long classId) {
+		this.classId = classId;
+	}
+	public Long getSectionId() {
+		return sectionId;
+	}
+	public void setSectionId(Long sectionId) {
+		this.sectionId = sectionId;
 	}
 	
 	 

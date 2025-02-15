@@ -9,21 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.business.StudentDetailsService;
-import com.erp.dto.ClassDetailsRequest;
 import com.erp.dto.DocumentDetailsRequest;
 import com.erp.dto.DocumentDetailsResponse;
+import com.erp.dto.DropDown;
 import com.erp.dto.FeeDetailsRequest;
 import com.erp.dto.FeeDetailsResponse;
-import com.erp.dto.StaffDetailsResponse;
 import com.erp.dto.StudentDetailsRequest;
 import com.erp.dto.StudentDetailsResponse;
-import com.erp.entity.ClassDetails;
 import com.erp.entity.DocumentDetails;
 import com.erp.entity.FeeDetails;
-import com.erp.entity.StaffDetails;
 import com.erp.entity.StudentDetails;
 import com.erp.repository.ClassDetailsRepository;
-import com.erp.repository.FeeDetailsRepository;
 import com.erp.repository.SectionDetailsRepository;
 import com.erp.repository.StudentDetailsRepository;
 
@@ -77,6 +73,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService{
 		
 		StudentDetails studentDetails = new StudentDetails();
 		BeanUtils.copyProperties(studentDetailsRequest, studentDetails);
+		studentDetails.setBloodGroup(studentDetailsRequest.getBloodGroupName());
 	
 		//Fee List
 		List <FeeDetails> feeDetailsList = new ArrayList<>();
@@ -138,8 +135,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService{
 					StudentDetailsResponse studentDetailsResponse = new StudentDetailsResponse();
 					studentDetailsResponse.setId(studentDetails.getId());
 					studentDetailsResponse.setStudentName(studentDetails.getStudentName());
-					studentDetailsResponse.setClassId(studentDetails.getClassId());
-					studentDetailsResponse.setSectionId(studentDetails.getSectionId());
+					
 					studentDetailsResponse.setContactNo(studentDetails.getContactNo());
 					studentDetailsResponse.setCity(studentDetails.getCity());
 					studentDetailsResponse.setAge(studentDetails.getAge());
@@ -148,9 +144,22 @@ public class StudentDetailsServiceImpl implements StudentDetailsService{
 					studentDetailsResponse.setFatherName(studentDetails.getFatherName());
 					studentDetailsResponse.setMotherName(studentDetails.getMotherName());
 					studentDetailsResponse.setBloodGroup(studentDetails.getBloodGroup());
-					//System.out.println("get class name"+classDetailsRepository.getClassNameById(studentDetails.getClassId()));
-					studentDetailsResponse.setClassName(classDetailsRepository.getClassNameById(studentDetails.getClassId()));
-					studentDetailsResponse.setSectionName(sectionDetailsRepository.getSectionNameById(studentDetails.getSectionId()));
+					long classId = studentDetails.getClassId();
+					long sectionId = studentDetails.getSectionId();
+					String className = classDetailsRepository.getClassNameById(classId);
+					String sectionName = sectionDetailsRepository.getSectionNameById(sectionId);
+					studentDetailsResponse.setClassId(classId);
+					studentDetailsResponse.setSectionId(sectionId);
+					studentDetailsResponse.setClassName(className);
+					studentDetailsResponse.setSectionName(sectionName);
+					DropDown classDropDown = new DropDown();
+					classDropDown.setId(classId);
+					classDropDown.setText(className);
+					DropDown sectionDropDown = new DropDown();
+					sectionDropDown.setId(sectionId);
+					sectionDropDown.setText(sectionName);
+					studentDetailsResponse.setClassDropDown(classDropDown);
+					studentDetailsResponse.setSectionDropDown(sectionDropDown);
 					
 					for (FeeDetails feeDetails : studentDetails.getFeeDetails())
 					{

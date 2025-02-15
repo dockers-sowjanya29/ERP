@@ -22,6 +22,8 @@ public class StudentDetailsResponse {
 	 private String className;
 	 private String sectionName;
 	 
+	 private DropDown classDropDown;
+	 private DropDown sectionDropDown;
 	 
 	 //Fee List
 	 private List<FeeDetailsResponse> fees;
@@ -149,6 +151,24 @@ public class StudentDetailsResponse {
 	}
 	public void setClassId(long classId) {
 		this.classId = classId;
+	}
+	public long getSectionId() {
+		return sectionId;
+	}
+	public long getClassId() {
+		return classId;
+	}
+	public DropDown getClassDropDown() {
+		return classDropDown;
+	}
+	public void setClassDropDown(DropDown classDropDown) {
+		this.classDropDown = classDropDown;
+	}
+	public DropDown getSectionDropDown() {
+		return sectionDropDown;
+	}
+	public void setSectionDropDown(DropDown sectionDropDown) {
+		this.sectionDropDown = sectionDropDown;
 	}
 
 

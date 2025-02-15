@@ -28,9 +28,9 @@ public class FileUploadController {
 			if(imgDataParts.length>1) {
 				Long id = Long.parseLong(imgDataParts[0]);
 				String type = imgDataParts[1];
-				System.out.println("FILE UPLOAD CONTROLLER--->"+id);
-				System.out.println("FILE UPLOAD CONTROLLER--->"+type);
-				System.out.println("FILE UPLOAD CONTROLLER--->"+itemImage.getBytes());
+				//System.out.println("FILE UPLOAD CONTROLLER--->"+id);
+				//System.out.println("FILE UPLOAD CONTROLLER--->"+type);
+				//System.out.println("FILE UPLOAD CONTROLLER--->"+itemImage.getBytes());
 				return fileUploadService.uploadImage(id, type, itemImage.getBytes());
 				
 			}

@@ -50,6 +50,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 	@Override
 	public List<InventoryOptions> getInventoryOptions() {
+		
 
 		List<Inventory> listInventories = inventoryRepository.findAll();
 
@@ -75,6 +76,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 	@Override
 	public List<InventoryResponse> getInventoryList() {
+		
 		List<Inventory> listInventories = inventoryRepository.findAll();
 		if (listInventories != null & !listInventories.isEmpty()) {
 			List<InventoryResponse> list = new ArrayList<>();
@@ -121,6 +123,7 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 	
 	private Inventory getInventory(Long inventoryId) {
+		
 		Optional<Inventory> optInventory = inventoryRepository.findById(inventoryId);
 		if (optInventory != null && optInventory.get() != null) {
 			return optInventory.get();

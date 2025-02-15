@@ -2,44 +2,57 @@ package com.erp.dto;
 
 import java.util.Calendar;
 
-public class FeeDetailsResponse {
 
-	private String className;
-	private String classAliasName;
-	private String classDescription;
-	private Calendar paid_date;
-	private Calendar next_due_date;
+
+public class FeeDetailsResponse {
 	
-	public String getClassName() {
-		return className;
-	}
-	public void setClassName(String className) {
-		this.className = className;
-	}
-	public String getClassAliasName() {
-		return classAliasName;
-	}
-	public void setClassAliasName(String classAliasName) {
-		this.classAliasName = classAliasName;
-	}
-	public String getClassDescription() {
-		return classDescription;
-	}
-	public void setClassDescription(String classDescription) {
-		this.classDescription = classDescription;
-	}
-	public Calendar getPaid_date() {
-		return paid_date;
-	}
-	public void setPaid_date(Calendar paid_date) {
-		this.paid_date = paid_date;
-	}
-	public Calendar getNext_due_date() {
-		return next_due_date;
-	}
-	public void setNext_due_date(Calendar next_due_date) {
-		this.next_due_date = next_due_date;
-	}
+	private double amountPaid;
+	private Calendar nextDueDate;
+	private Calendar paidDate;
+	private double totalAmount;
 	
 	
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	private Long id;
+
+	public double getAmountPaid() {
+		return amountPaid;
+	}
+
+	public void setAmountPaid(double amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+
+	public Calendar getNextDueDate() {
+		return nextDueDate;
+	}
+
+	public void setNextDueDate(Calendar nextDueDate) {
+		this.nextDueDate = nextDueDate;
+	}
+
+	public Calendar getPaidDate() {
+		return paidDate;
+	}
+
+	public void setPaidDate(Calendar paidDate) {
+		this.paidDate = paidDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 }

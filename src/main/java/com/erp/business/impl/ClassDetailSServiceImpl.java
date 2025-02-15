@@ -30,13 +30,17 @@ public class ClassDetailSServiceImpl implements ClassDetailsService{
 	@Override
 	public String saveClassDetails(ClassDetailsRequest classDetailsRequest) {
 		
+		System.out.println("in class details--->"+classDetailsRequest.getId());
+		
 		ClassDetails classDetails=null;
 		if (classDetailsRequest != null) {
-			if (classDetailsRequest.getId() != null) {
+			if (classDetailsRequest.getId() != null) {  //Update
+				//System.out.println("called for save for ID");
 				classDetails = getClassDetails(classDetailsRequest.getId());
 			}
 			else {
-				classDetails = new ClassDetails();
+				classDetails = new ClassDetails(); //create 
+				//System.out.println("called for save else ID");
 			}
 			BeanUtils.copyProperties(classDetailsRequest, classDetails);
 			classDetails = classDetailsRepository.save(classDetails);
@@ -49,6 +53,7 @@ public class ClassDetailSServiceImpl implements ClassDetailsService{
 	
 
 	private ClassDetails getClassDetails(Long classId) {
+	//	System.out.println("called for update");
 		Optional<ClassDetails> optClassDetails = classDetailsRepository.findById(classId);
 		if (optClassDetails != null && optClassDetails.get() != null) {
 			return optClassDetails.get();

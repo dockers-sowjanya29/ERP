@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.erp.business.FileUploadService;
+import com.erp.entity.DocumentDetails;
 import com.erp.entity.SchoolProfile;
 import com.erp.entity.StaffDetails;
 import com.erp.entity.StudentDetails;
@@ -61,16 +62,14 @@ public class FileUploadServiceImpl implements FileUploadService {
 				return "Student saved Successfully";
 			}
 		}
-		
+		//check
 		
 	   else if(type.equals("DOCIMAGE")) {
 			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
 			if(studentDetails !=null) {
-				studentDetails.setDocumentPhoto(imageContent);
+				DocumentDetails documentDetails = new DocumentDetails();
+				documentDetails.setDocumentPhoto(imageContent);
 				studentDetailsRepository.save(studentDetails);
-				System.out.println("DOCIMAGE--->"+ studentDetails.getId());
-				System.out.println("DOCIMAGE--->"+ studentDetails.getDocumentPhoto());
-				System.out.println("DOCIMAGE--->"+ studentDetails.getProfilePhoto());
 				return "Document saved Successfully";
 			}
 		}

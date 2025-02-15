@@ -34,13 +34,11 @@ public class StudentDetails {
 	 @Column(name="Student_Name")
 	 private String studentName;
 
-	 
-
 	@Column(name="Age")
 	 private int age;
 	 
 	 @Column(name="Blood_Group")
-	 private String bloodGroupName;
+	 private String bloodGroup;
 	 
 	 @Column(name="City")
 	 private String city;
@@ -48,9 +46,6 @@ public class StudentDetails {
 	 @Column(name="DOB")
 	 private Calendar dob;
 	 
-	 @Lob
-	 @Column(name = "Document_Photo", length = 1000)
-	 private  byte[] documentPhoto;	
 	 
 	 @Column(name="Father_Name")
 	 private String fatherName;
@@ -65,14 +60,19 @@ public class StudentDetails {
 	 private String emailId;
 	 
 	 @Column(name="class_id")
-	 private int classId;
+	 private Long classId;
 	 
 	 @Column(name="SECTION_ID")
-	 private int sectionId;
+	 private Long sectionId;
 	 
+		 
 	 
 	 @OneToMany(mappedBy = "studentDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 		private List<FeeDetails>  feeDetails= new ArrayList<>();	
+	 
+	 
+	 @OneToMany(mappedBy = "studentDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+		private List<DocumentDetails>  documentDetails= new ArrayList<>();
 	 
 	 
 	 public byte[] getProfilePhoto() {
@@ -83,19 +83,7 @@ public class StudentDetails {
 		this.profilePhoto = profilePhoto;
 	}
 
-	public byte[] getDocumentPhoto() {
-		return documentPhoto;
-	}
-
-	public void setDocumentPhoto(byte[] documentPhoto) {
-		this.documentPhoto = documentPhoto;
-	}
-
-	@Column(name="Document_Name")
-	 private String documentName;
-	 
-	 @Column(name="Document_number")
-	 private int documentNo;
+	
 	 
 	 public String getContactNo() {
 		return contactNo;
@@ -105,9 +93,6 @@ public class StudentDetails {
 		this.contactNo = contactNo;
 	}
 
-	
-	 
-	 
 	 public List<FeeDetails> getFeeDetails() {
 		return feeDetails;
 	}
@@ -142,13 +127,7 @@ public class StudentDetails {
 		this.age = age;
 	}
 
-	public String getBloodGroupName() {
-		return bloodGroupName;
-	}
-
-	public void setBloodGroupName(String bloodGroupName) {
-		this.bloodGroupName = bloodGroupName;
-	}
+	
 
 	public String getCity() {
 		return city;
@@ -164,24 +143,6 @@ public class StudentDetails {
 
 	public void setDob(Calendar dob) {
 		this.dob = dob;
-	}
-
-	
-
-	public String getDocumentName() {
-		return documentName;
-	}
-
-	public void setDocumentName(String documentName) {
-		this.documentName = documentName;
-	}
-
-	public int getDocumentNo() {
-		return documentNo;
-	}
-
-	public void setDocumentNo(int documentNo) {
-		this.documentNo = documentNo;
 	}
 
 	public String getFatherName() {
@@ -201,7 +162,6 @@ public class StudentDetails {
 	}
 
 
-
 	public String getEmailId() {
 		return emailId;
 	}
@@ -210,19 +170,37 @@ public class StudentDetails {
 		this.emailId = emailId;
 	}
 
-	public int getClassId() {
+
+
+	public List<DocumentDetails> getDocumentDetails() {
+		return documentDetails;
+	}
+
+	public void setDocumentDetails(List<DocumentDetails> documentDetails) {
+		this.documentDetails = documentDetails;
+	}
+
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
+	}
+
+	public Long getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(Long classId) {
 		this.classId = classId;
 	}
 
-	public int getSectionId() {
+	public Long getSectionId() {
 		return sectionId;
 	}
 
-	public void setSectionId(int sectionId) {
+	public void setSectionId(Long sectionId) {
 		this.sectionId = sectionId;
 	}
 

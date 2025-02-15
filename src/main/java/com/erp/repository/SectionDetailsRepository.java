@@ -13,5 +13,9 @@ public interface SectionDetailsRepository extends JpaRepository<SectionDetails, 
 	 @Modifying
 	 @Query("DELETE from  SectionDetails sect where sect.classId=?1")
 	 public void deleteSectionDetails(Long classId);
+	 
+	 
+	 @Query("SELECT sectionName FROM SectionDetails sds where sds.id=?1")
+		public String getSectionNameById(Long id);
 
 }

@@ -10,9 +10,12 @@ import com.erp.entity.DocumentDetails;
 import com.erp.entity.SchoolProfile;
 import com.erp.entity.StaffDetails;
 import com.erp.entity.StudentDetails;
+import com.erp.repository.DocumentDetailsRepository;
 import com.erp.repository.SchoolProfileRepository;
 import com.erp.repository.StaffDetailsRepository;
 import com.erp.repository.StudentDetailsRepository;
+
+import java.util.List;
 
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
@@ -25,6 +28,10 @@ public class FileUploadServiceImpl implements FileUploadService {
 	
 	@Autowired
 	StudentDetailsRepository studentDetailsRepository;
+	
+	
+	@Autowired
+	DocumentDetailsRepository documentDetailsRepository;
 
 	@Override
 	public String uploadImage(Long id, String type, byte[] imageContent) {
@@ -54,11 +61,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
 			if(studentDetails !=null) {
 				studentDetails.setProfilePhoto(imageContent);
-				//studentDetailsRepository.save(studentDetails);
-				//studentDetailsRepository.flush();
 				studentDetailsRepository.saveAndFlush(studentDetails);
-				System.out.println("STUDENT--->"+ studentDetails.getId());
-				System.out.println("STUDENT--->"+ studentDetails.getProfilePhoto());
 				return "Student saved Successfully";
 			}
 		}
@@ -67,10 +70,15 @@ public class FileUploadServiceImpl implements FileUploadService {
 	   else if(type.equals("DOCIMAGE")) {
 			StudentDetails studentDetails = getDetails(studentDetailsRepository.findById(id));
 			if(studentDetails !=null) {
-				DocumentDetails documentDetails = new DocumentDetails();
-				documentDetails.setDocumentPhoto(imageContent);
-				studentDetailsRepository.save(studentDetails);
-				return "Document saved Successfully";
+				List<DocumentDetails> docs = studentDetails.getDocumentDetails();
+				if(docs != null) {
+					for(DocumentDetails doc : docs) {
+						doc.setDocumentPhoto(imageContent);
+						doc.setStudentDetails(studentDetails);
+						documentDetailsRepository.save(doc);
+					}
+					return "Document saved Successfully";
+				}
 			}
 		}
 		

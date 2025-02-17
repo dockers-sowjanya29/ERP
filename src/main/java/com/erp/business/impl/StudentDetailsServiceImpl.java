@@ -40,22 +40,26 @@ public class StudentDetailsServiceImpl implements StudentDetailsService{
 	public long saveStudentDetails(StudentDetailsRequest studentDetailsRequest) {
 		
 		StudentDetails studentDetails=null;
+		long studentId=0;
 		
-		System.out.println(" in save method---->>>"+studentDetailsRequest.getId());
+		//System.out.println(" in save method---->>>"+studentDetailsRequest.getId());
 		
 		if (studentDetailsRequest != null) {
 			if (studentDetailsRequest.getId() != null) {  //Update
-				System.out.println("called for save for ID");
+				//System.out.println("called for save for ID");
 				studentDetails = getStudentDetails(studentDetailsRequest.getId());
 			}
 			else {
 				studentDetails = new StudentDetails(); //create 
-				System.out.println("called for save else ID");
+				//System.out.println("called for save else ID");
 			}
 			studentDetails=convertStudentRequestToStudentDetailsEntity(studentDetailsRequest);
 			studentDetails=studentDetailsRepository.save(studentDetails);
+			if(studentDetails !=null) {
+				studentId=studentDetails.getId();
+			}
 		}
-		return 0;
+		return studentId;
 	}
 	
 	//update

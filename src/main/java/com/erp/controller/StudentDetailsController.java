@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.erp.business.StudentDetailsService;
-import com.erp.dto.StaffDetailsResponse;
 import com.erp.dto.StudentDetailsRequest;
 import com.erp.dto.StudentDetailsResponse;
 

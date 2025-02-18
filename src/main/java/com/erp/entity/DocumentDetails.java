@@ -31,7 +31,7 @@ public class DocumentDetails {
 	private String documentNo ;
 	
 	 @Lob
-	 @Column(name = "document_photo", length = 1000)
+	 @Column(name = "document_photo")
 	 private  byte[] documentPhoto;	
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

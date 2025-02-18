@@ -5,6 +5,7 @@ public class DocumentDetailsRequest {
 	private Long id;
 	private String documentName ;
 	private String documentNo ;
+	private FileDTO documentIdetificationPhoto;
 	//private  String documentPhoto;	
 	private Long studentId;
 	
@@ -33,6 +34,12 @@ public class DocumentDetailsRequest {
 	}
 	public void setDocumentNo(String documentNo) {
 		this.documentNo = documentNo;
+	}
+	public FileDTO getDocumentIdetificationPhoto() {
+		return documentIdetificationPhoto;
+	}
+	public void setDocumentIdetificationPhoto(FileDTO documentIdetificationPhoto) {
+		this.documentIdetificationPhoto = documentIdetificationPhoto;
 	}
 	
 	

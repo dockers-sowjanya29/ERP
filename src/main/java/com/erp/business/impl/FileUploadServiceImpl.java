@@ -1,5 +1,6 @@
 package com.erp.business.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,9 @@ import com.erp.entity.DocumentDetails;
 import com.erp.entity.SchoolProfile;
 import com.erp.entity.StaffDetails;
 import com.erp.entity.StudentDetails;
-import com.erp.repository.DocumentDetailsRepository;
 import com.erp.repository.SchoolProfileRepository;
 import com.erp.repository.StaffDetailsRepository;
 import com.erp.repository.StudentDetailsRepository;
-
-import java.util.List;
 
 @Service
 public class FileUploadServiceImpl implements FileUploadService {

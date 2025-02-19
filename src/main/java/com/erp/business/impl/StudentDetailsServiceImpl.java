@@ -169,6 +169,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 					sectionDropDown.setText(sectionName);
 					studentDetailsResponse.setClassDropDown(classDropDown);
 					studentDetailsResponse.setSectionDropDown(sectionDropDown);
+					studentDetailsResponse.setStudentPhoto(studentDetails.getProfilePhoto());
 
 					for (FeeDetails feeDetails : studentDetails.getFeeDetails()) {
 						FeeDetailsResponse feeDetailsResponse = new FeeDetailsResponse();
@@ -203,6 +204,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 						// System.out.println("get doc number"+documentDetails.getDocumentNo());
 						documentDetailsResponse.setId(documentDetails.getId());
 						documentDetailsResponse.setDocumentPhoto(documentDetails.getDocumentPhoto());
+						documentDetailsResponse.setDocumentIdetificationPhoto(documentDetails.getDocumentPhoto());
 						documentDetailsResponsesList.add(documentDetailsResponse);
 
 					}

@@ -9,37 +9,33 @@ import org.springframework.stereotype.Service;
 import com.erp.business.StaffDetailsService;
 import com.erp.dto.StaffDetailsRequest;
 import com.erp.dto.StaffDetailsResponse;
-import com.erp.entity.Inventory;
 import com.erp.entity.StaffDetails;
 import com.erp.repository.StaffDetailsRepository;
 
 @Service
-public class StaffDetailsServiceImpl implements StaffDetailsService{
-	
+public class StaffDetailsServiceImpl implements StaffDetailsService {
+
 	@Autowired
 	StaffDetailsRepository staffDetailsRepository;
 
-	
 	@Override
 	public long saveStaffDetails(StaffDetailsRequest staffDetailsRequest) {
-		
-		StaffDetails staffDetails=convertStaffRequestToStaffDetailsEntity(staffDetailsRequest);
-		System.out.println("In save Impl"+staffDetails.getSectionId());
-		staffDetails=staffDetailsRepository.save(staffDetails);
-		if(staffDetails!=null) {
+
+		StaffDetails staffDetails = convertStaffRequestToStaffDetailsEntity(staffDetailsRequest);
+		System.out.println("In save Impl" + staffDetails.getSectionId());
+		staffDetails = staffDetailsRepository.save(staffDetails);
+		if (staffDetails != null) {
 			return staffDetails.getId();
 		}
 		return 0;
 	}
-	
-	
-	private StaffDetails convertStaffRequestToStaffDetailsEntity(StaffDetailsRequest staffDetailsRequest)
-	{
-		
-		if(staffDetailsRequest!=null) {
-			
-			//System.out.println("In Service Impl"+staffDetailsRequest.getSectionId());
-			StaffDetails staffDetails=new StaffDetails();
+
+	private StaffDetails convertStaffRequestToStaffDetailsEntity(StaffDetailsRequest staffDetailsRequest) {
+
+		if (staffDetailsRequest != null) {
+
+			// System.out.println("In Service Impl"+staffDetailsRequest.getSectionId());
+			StaffDetails staffDetails = new StaffDetails();
 			staffDetails.setCategoryId(staffDetailsRequest.getCategoryId());
 			staffDetails.setDob(staffDetailsRequest.getDob());
 			staffDetails.setDoj(staffDetailsRequest.getDoj());
@@ -56,22 +52,20 @@ public class StaffDetailsServiceImpl implements StaffDetailsService{
 			staffDetails.setSectionId(staffDetailsRequest.getSectionId());
 			return staffDetails;
 		}
-		
+
 		return null;
 	}
 
-
 	@Override
 	public List<StaffDetailsResponse> getStaffList() {
-		List<StaffDetailsResponse> staffDetailsResponseList =new ArrayList<StaffDetailsResponse>();
-		List<StaffDetails> staffDetailsList=staffDetailsRepository.findAll();
-		
-		if(staffDetailsList!=null && !staffDetailsList.isEmpty()) {
-			for(StaffDetails staffDetails:staffDetailsList)
-			{
-				if(staffDetails!=null) {
-					
-					StaffDetailsResponse staffDetailsResponse=new StaffDetailsResponse();
+		List<StaffDetailsResponse> staffDetailsResponseList = new ArrayList<StaffDetailsResponse>();
+		List<StaffDetails> staffDetailsList = staffDetailsRepository.findAll();
+
+		if (staffDetailsList != null && !staffDetailsList.isEmpty()) {
+			for (StaffDetails staffDetails : staffDetailsList) {
+				if (staffDetails != null) {
+
+					StaffDetailsResponse staffDetailsResponse = new StaffDetailsResponse();
 					staffDetailsResponse.setId(staffDetails.getId());
 					staffDetailsResponse.setStaffName(staffDetails.getStaffName());
 					staffDetailsResponse.setPhoneNo(staffDetails.getPhoneNo());
@@ -80,20 +74,18 @@ public class StaffDetailsServiceImpl implements StaffDetailsService{
 				}
 			}
 		}
-		
+
 		return staffDetailsResponseList;
 	}
 
-
 	@Override
 	public boolean deleteStaff(Long id) {
-		
-		System.out.println(" in delete method"+id);
-		if(id!=null)
-		{
-			System.out.println(" in delete method2"+id);
+
+		System.out.println(" in delete method" + id);
+		if (id != null) {
+			System.out.println(" in delete method2" + id);
 			staffDetailsRepository.deleteById(id);
-			System.out.println(" after delete method2"+id);
+			System.out.println(" after delete method2" + id);
 			return true;
 		}
 		return false;

@@ -181,12 +181,6 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 						amountPaid = feeDetails.getAmountPaid() + amountPaid;// installments
 						feeDetailsResponse.setAmountPaid(feeDetails.getAmountPaid());
 
-						// calculate balance Amount and return status
-						// Long
-						// balanceAmount=feeDetailsRepository.getBalanceAmountForStudent(studentDetails.getId());
-
-						// balanceAmount=totalFeeAmount-amountPaid;
-						// System.out.println("fee details balance amount"+balanceAmount);
 						feeDetailsResponsesList.add(feeDetailsResponse);
 
 					}

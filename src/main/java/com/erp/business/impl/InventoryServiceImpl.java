@@ -14,7 +14,6 @@ import com.erp.business.InventoryService;
 import com.erp.dto.InventoryOptions;
 import com.erp.dto.InventoryRequest;
 import com.erp.dto.InventoryResponse;
-import com.erp.dto.NameValuePair;
 import com.erp.entity.Inventory;
 import com.erp.repository.InventoryRepository;
 import com.erp.repository.IssueDetailsRepository;
@@ -35,13 +34,12 @@ public class InventoryServiceImpl implements InventoryService {
 		if (inventoryRequest != null) {
 			if (inventoryRequest.getId() != null) {
 				inventory = getInventory(inventoryRequest.getId());
-			}
-			else {
+			} else {
 				inventory = new Inventory();
 			}
 			BeanUtils.copyProperties(inventoryRequest, inventory);
 			inventory = inventoryRepository.save(inventory);
-			if(inventory != null) {
+			if (inventory != null) {
 				return inventory.getId();
 			}
 		}
@@ -50,7 +48,6 @@ public class InventoryServiceImpl implements InventoryService {
 
 	@Override
 	public List<InventoryOptions> getInventoryOptions() {
-		
 
 		List<Inventory> listInventories = inventoryRepository.findAll();
 
@@ -60,11 +57,11 @@ public class InventoryServiceImpl implements InventoryService {
 				InventoryOptions np = new InventoryOptions();
 				np.setInventoryName(inv.getItemName());
 				np.setInventoryId(inv.getId());
-				//quantity label
+				// quantity label
 				Long issueQuantity = issueDetailsRepository.getIssueQuantityByInventoryID(inv.getId());
-				if(issueQuantity!=null) {
-				np.setAvailableQuantity(inv.getQuantity()-issueQuantity);}
-				else {
+				if (issueQuantity != null) {
+					np.setAvailableQuantity(inv.getQuantity() - issueQuantity);
+				} else {
 					np.setAvailableQuantity(inv.getQuantity());
 				}
 				list.add(np);
@@ -76,7 +73,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 	@Override
 	public List<InventoryResponse> getInventoryList() {
-		
+
 		List<Inventory> listInventories = inventoryRepository.findAll();
 		if (listInventories != null & !listInventories.isEmpty()) {
 			List<InventoryResponse> list = new ArrayList<>();
@@ -121,9 +118,9 @@ public class InventoryServiceImpl implements InventoryService {
 		}
 		return false;
 	}
-	
+
 	private Inventory getInventory(Long inventoryId) {
-		
+
 		Optional<Inventory> optInventory = inventoryRepository.findById(inventoryId);
 		if (optInventory != null && optInventory.get() != null) {
 			return optInventory.get();

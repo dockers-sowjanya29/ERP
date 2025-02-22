@@ -12,10 +12,7 @@ import com.erp.business.SectionDetailsService;
 import com.erp.dto.NameValuePair;
 import com.erp.dto.SectionDetailsRequest;
 import com.erp.dto.SectionDetailsResponse;
-import com.erp.dto.SubjectDetailsResponse;
-import com.erp.entity.ClassDetails;
 import com.erp.entity.SectionDetails;
-import com.erp.entity.SubjectDetails;
 import com.erp.repository.SectionDetailsRepository;
 
 @Service
@@ -23,28 +20,26 @@ public class SectionDetailsServiceImpl implements SectionDetailsService {
 
 	@Autowired
 	SectionDetailsRepository sectionDetailsRepository;
-	
+
 	@Override
 	public String saveSectionDetails(SectionDetailsRequest sectionDetailsRequest) {
-		SectionDetails sectionDetails=null;
+		SectionDetails sectionDetails = null;
 		if (sectionDetailsRequest != null) {
 			if (sectionDetailsRequest.getId() != null) {
 				sectionDetails = getSectionDetails(sectionDetailsRequest.getId());
-			}
-			else {
+			} else {
 				sectionDetails = new SectionDetails();
 			}
 			BeanUtils.copyProperties(sectionDetailsRequest, sectionDetails);
 			sectionDetails = sectionDetailsRepository.save(sectionDetails);
-			if(sectionDetails != null) {
+			if (sectionDetails != null) {
 				return "Section Details Saved Successfully";
 			}
 		}
 		return null;
-	
+
 	}
-	
-	
+
 	private SectionDetails getSectionDetails(Long sectionId) {
 		Optional<SectionDetails> optSectionOptional = sectionDetailsRepository.findById(sectionId);
 		if (optSectionOptional != null && optSectionOptional.get() != null) {
@@ -53,14 +48,12 @@ public class SectionDetailsServiceImpl implements SectionDetailsService {
 		return null;
 	}
 
-
-	
 	@Override
 	public List<NameValuePair> getSectionNamesList() {
-		List<NameValuePair> nameValuePairs=new ArrayList<NameValuePair>();
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		List<SectionDetailsResponse> list = getSectionDetailsList();
-		for(SectionDetailsResponse cdr : list ) {
-			NameValuePair nameValuePair=new NameValuePair();
+		for (SectionDetailsResponse cdr : list) {
+			NameValuePair nameValuePair = new NameValuePair();
 			nameValuePair.setName(cdr.getSectionName());
 			nameValuePair.setValue(cdr.getId().toString());
 			nameValuePairs.add(nameValuePair);
@@ -68,20 +61,33 @@ public class SectionDetailsServiceImpl implements SectionDetailsService {
 		return nameValuePairs;
 	}
 
-   
 	@Override
 	public List<SectionDetailsResponse> getSectionDetailsList() {
 		List<SectionDetailsResponse> list = new ArrayList<>();
 		List<SectionDetails> listSectionDetails = sectionDetailsRepository.findAll();
 		if (listSectionDetails != null & !listSectionDetails.isEmpty()) {
 			for (SectionDetails cd : listSectionDetails) {
-				SectionDetailsResponse sectionDetailsResponse=new SectionDetailsResponse();
+				SectionDetailsResponse sectionDetailsResponse = new SectionDetailsResponse();
 				BeanUtils.copyProperties(cd, sectionDetailsResponse);
 				list.add(sectionDetailsResponse);
 			}
-		  }
+		}
 		return list;
 	}
 
+	@Override
+	public List<NameValuePair> getSectionNamesListByClassId(Long classId) {
+		List<NameValuePair> nameValuePairs = new ArrayList<>();
+		List<SectionDetails> listSectionDetails = sectionDetailsRepository.getSectionsByClassId(classId);
+		if (listSectionDetails != null & !listSectionDetails.isEmpty()) {
+			for (SectionDetails sectionDetails : listSectionDetails) {
+				NameValuePair nameValuePair = new NameValuePair();
+				nameValuePair.setName(sectionDetails.getSectionName());
+				nameValuePair.setValue(sectionDetails.getId().toString());
+				nameValuePairs.add(nameValuePair);
+			}
+		}
+		return nameValuePairs;
+	}
 
 }

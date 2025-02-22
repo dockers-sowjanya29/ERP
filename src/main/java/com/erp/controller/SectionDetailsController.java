@@ -35,5 +35,10 @@ public class SectionDetailsController {
 	public List<NameValuePair> getSectionNamesList() {
 		return sectionDetailsService.getSectionNamesList();
 	}
+	
+	@RequestMapping(value = "/getSectionNamesListByClassId", method = RequestMethod.POST)
+	public List<NameValuePair> getSectionNamesListByClassId(@RequestBody Long classId) {
+		return sectionDetailsService.getSectionNamesListByClassId(classId);
+	}
 
 }
